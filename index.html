@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Munir Ahmed Decorations | Pakistan's Premier Party Supplies & Balloons Store</title>
+  
+  <!-- SEO & Social Meta Tags -->
+  <meta name="description" content="Munir Ahmed Decorations (منیر احمد ڈیکوریشنز) - Pakistan's ultimate party supplies, foil balloons, cake toppers, anar sparkler candles, party poppers, sashes, and gift paper & bags wholesale and retail store. COD, JazzCash, EasyPaisa.">
+  <meta name="keywords" content="Munir Ahmed Decorations, party supplies Pakistan, foil balloons Lahore Karachi, cake toppers Pakistan, anar candles, party poppers, birthday sashes, gift wrapping paper, gift bags, wholesale party items">
+  <meta name="author" content="Munir Ahmed Decorations Co.">
+  
+  <!-- OpenGraph -->
+  <meta property="og:title" content="Munir Ahmed Decorations | Party Supplies & Balloon House">
+  <meta property="og:description" content="Everything for birthdays, weddings, bridal showers & milestones. Real inventory stock with COD & nationwide express delivery.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="assets/images/birthday_decor.jpg">
+
+  <!-- Schema.org JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "PartyStore",
+    "name": "Munir Ahmed Decorations",
+    "alternateName": "منیر احمد ڈیکوریشنز",
+    "image": "assets/images/birthday_decor.jpg",
+    "telephone": "+923008451998",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Royal Market, Near Hall Road & Liberty",
+      "addressLocality": "Lahore",
+      "addressRegion": "Punjab",
+      "postalCode": "54000",
+      "addressCountry": "PK"
+    },
+    "priceRange": "PKR 150 - PKR 5,000",
+    "paymentAccepted": "Cash on Delivery, JazzCash, EasyPaisa, Meezan Bank, Raast"
+  }
+  </script>
+
+  <!-- Resource Hints & Google Fonts Preconnect -->
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+  <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Noto+Nastaliq+Urdu:wght@400;700&display=swap">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <!-- Celebration Confetti Particle Canvas -->
+  <canvas id="confetti-canvas"></canvas>
+
+  <!-- ===================================================================
+       TOP ANNOUNCEMENT BAR
+       =================================================================== -->
+  <div class="top-announcement">
+    <div class="announcement-left">
+      <span class="badge-trust">EST. 1998</span>
+      <span>🇵🇰 <strong>FREE Express Delivery</strong> on orders above PKR 3,500 | 📦 Cash on Delivery Across Pakistan</span>
+    </div>
+    
+    <div class="announcement-right">
+      <!-- Wholesale Mode Toggle -->
+      <div class="wholesale-switch-container">
+        <label for="wholesale-toggle" class="wholesale-label">Wholesale Rates (30-45% OFF):</label>
+        <label class="switch-toggle">
+          <input type="checkbox" id="wholesale-toggle">
+          <span class="slider-round"></span>
+        </label>
+      </div>
+
+      <!-- Party Sound FX Toggle -->
+      <button id="btn-sound-toggle" class="btn-sound-toggle" title="Toggle Sound Effects">
+        🔊 Sound: ON
+      </button>
+
+      <!-- Track Order Link -->
+      <a href="track.html" class="top-link">
+        <span>🚚 Track Order</span>
+      </a>
+
+      <!-- Admin Passcode Trigger -->
+      <a href="admin.html" class="top-admin-link">
+        <span>🔒 Admin</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- ===================================================================
+       MAIN HEADER / NAVIGATION
+       =================================================================== -->
+  <header class="main-header">
+    <div class="nav-container">
+      <!-- Brand Identity -->
+      <a href="#home" class="brand-wrapper">
+        <div class="brand-icon-box">🎈</div>
+        <div class="brand-title-box">
+          <span class="brand-name">MUNIR AHMED</span>
+          <span class="brand-sub">PARTY & CELEBRATIONS</span>
+        </div>
+      </a>
+
+      <!-- Navigation Links -->
+      <nav>
+        <ul class="nav-links">
+          <li><a href="#categories" class="nav-link">Categories</a></li>
+          <li><a href="#popular-items" class="nav-link">Bestsellers 🔥</a></li>
+          <li><a href="#celebrations" class="nav-link">Occasions</a></li>
+          <li><a href="#catalog" class="nav-link">All Products</a></li>
+          <li><a href="#wholesale" class="nav-link">Wholesale</a></li>
+          <li><a href="track.html" class="nav-link">Track Order</a></li>
+        </ul>
+      </nav>
+
+      <!-- Action Buttons -->
+      <div class="nav-actions">
+        <!-- Party Theme Switcher (Light / Dark Mode) -->
+        <button id="btn-theme-toggle" class="btn-theme-toggle" title="Switch Theme (Light / Dark)">
+          <span>☀️</span>
+          <span>Theme</span>
+        </button>
+
+        <!-- Cart Drawer Trigger -->
+        <button id="btn-open-cart" class="btn-cart-trigger" title="View Cart">
+          🛒
+          <span id="cart-badge" class="cart-count-badge" style="display: none;">0</span>
+        </button>
+
+        <!-- Direct WhatsApp Order -->
+        <a href="https://wa.me/923008451998?text=Assalam%20o%20Alaikum!%20I%20want%20to%20order%20party%20supplies%20from%20Munir%20Ahmed%20Decorations" target="_blank" class="btn-whatsapp-nav">
+          <span>💬</span>
+          <span>WhatsApp Order</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===================================================================
+       HERO BANNER SECTION
+       =================================================================== -->
+  <section id="home" class="hero-banner">
+    <div class="container">
+      <div class="hero-card">
+        <div class="hero-text-col">
+          <div class="hero-pill">
+            <span>✨</span>
+            <span>Pakistan's Premier Celebration Supplies Since 1998</span>
+          </div>
+
+          <h1 class="hero-title">
+            Everything You Need to <span class="gradient-text">Celebrate in Style</span>
+          </h1>
+
+          <p class="hero-desc">
+            Direct warehouse stock of premium foil balloons, cake toppers, cold anar sparklers, birthday sashes, party poppers, and luxury gift packaging. Express delivery with Cash on Delivery across 250+ cities.
+          </p>
+
+          <div class="hero-buttons">
+            <a href="#popular-items" class="btn-primary-party">
+              <span>🔥</span>
+              <span>Shop Bestsellers</span>
+            </a>
+            <a href="#catalog" class="btn-secondary-party">
+              <span>🎈</span>
+              <span>Browse All Items</span>
+            </a>
+          </div>
+
+          <div class="hero-features-row">
+            <div class="hero-feature-item">
+              <span class="feature-icon-circle">🚚</span>
+              <span>Express Delivery (250+ Cities)</span>
+            </div>
+            <div class="hero-feature-item">
+              <span class="feature-icon-circle">💵</span>
+              <span>Cash on Delivery & JazzCash</span>
+            </div>
+            <div class="hero-feature-item">
+              <span class="feature-icon-circle">📦</span>
+              <span>100% In-Stock Guarantee</span>
+            </div>
+            <div class="hero-feature-item">
+              <span class="feature-icon-circle">🤝</span>
+              <span>Wholesale Bulk Trade Rates</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hero Visual Showcase -->
+        <div class="hero-visual-showcase">
+          <div class="hero-image-grid-box">
+            <img src="assets/images/birthday_decor.jpg" alt="Party Supplies Stock by Munir Ahmed Decorations" fetchpriority="high" decoding="async" width="560" height="420">
+          </div>
+
+          <div class="hero-floating-tag tag-top-right">
+            <span>🎁</span>
+            <div>
+              <span style="color:#ffc048; display:block; font-size:0.75rem;">NEW IN STOCK</span>
+              <span>Gift Paper & Luxury Bags</span>
+            </div>
+          </div>
+
+          <div class="hero-floating-tag tag-bottom-left">
+            <span>🔥</span>
+            <div>
+              <span style="color:#2ed573; display:block; font-size:0.75rem;">VIRAL HIT</span>
+              <span>Anar Sparkler Candles</span>
+            </div>
+          </div>
+
+          <div class="hero-floating-tag tag-top-left">
+            <span>👑</span>
+            <div>
+              <span style="color:#ff6b81; display:block; font-size:0.75rem;">WEDDING FAVORITE</span>
+              <span>"Baat Pakki" Foil Sets</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================================
+       CELEBRATION INFINITE MARQUEE TICKER TAPE
+       =================================================================== -->
+  <div class="party-marquee-strip">
+    <div class="party-marquee-track">
+      <div class="party-marquee-item">🎉 MUNIR AHMED PARTY SUPPLIES HOUSE</div>
+      <div class="marquee-star">✦</div>
+      <div class="party-marquee-item">🎈 100-PACK TONGLE LATEX BALLOONS</div>
+      <div class="marquee-star">✦</div>
+      <div class="party-marquee-item">💥 INDOOR COLD ANAR SPARKLERS & SMOKE</div>
+      <div class="marquee-star">✦</div>
+      <div class="party-marquee-item">💍 VIRAL "DATE FIXED" & "BAAT PAKKI" FOIL SETS</div>
+      <div class="marquee-star">✦</div>
+      <div class="party-marquee-item">🎁 METALLIC GIFT WRAP & LUXURY RIBBON BAGS</div>
+      <div class="marquee-star">✦</div>
+      <div class="party-marquee-item">🎂 GOLDEN ACRYLIC DULHAN & NIKKAH TOPPERS</div>
+      <div class="marquee-star">✦</div>
+      <div class="party-marquee-item">🚚 EXPRESS TCS & LEOPARDS COD TO 250+ CITIES</div>
+      <div class="marquee-star">✦</div>
+      <div class="party-marquee-item">✨ 45,000+ CELEBRATIONS SUPPLIED SINCE 1998</div>
+      <div class="marquee-star">✦</div>
+      <!-- Seamless loop duplicate -->
+      <div class="party-marquee-item">🎉 MUNIR AHMED PARTY SUPPLIES HOUSE</div>
+      <div class="marquee-star">✦</div>
+      <div class="party-marquee-item">🎈 100-PACK TONGLE LATEX BALLOONS</div>
+      <div class="marquee-star">✦</div>
+      <div class="party-marquee-item">💥 INDOOR COLD ANAR SPARKLERS & SMOKE</div>
+      <div class="marquee-star">✦</div>
+      <div class="party-marquee-item">💍 VIRAL "DATE FIXED" & "BAAT PAKKI" FOIL SETS</div>
+      <div class="marquee-star">✦</div>
+      <div class="party-marquee-item">🎁 METALLIC GIFT WRAP & LUXURY RIBBON BAGS</div>
+      <div class="marquee-star">✦</div>
+      <div class="party-marquee-item">🎂 GOLDEN ACRYLIC DULHAN & NIKKAH TOPPERS</div>
+      <div class="marquee-star">✦</div>
+      <div class="party-marquee-item">🚚 EXPRESS TCS & LEOPARDS COD TO 250+ CITIES</div>
+      <div class="marquee-star">✦</div>
+      <div class="party-marquee-item">✨ 45,000+ CELEBRATIONS SUPPLIED SINCE 1998</div>
+      <div class="marquee-star">✦</div>
+    </div>
+  </div>
+
+  <!-- ===================================================================
+       URGENT SAME-DAY DISPATCH COUNTDOWN STRIP
+       =================================================================== -->
+  <div class="dispatch-countdown-strip">
+    <div class="container dispatch-countdown-content">
+      <div class="dispatch-pulse-box">
+        <span class="dispatch-pulse-dot"></span>
+        <span>⚡ <strong>SAME-DAY DISPATCH ACTIVE:</strong> Order in the next <span id="dispatch-timer" class="countdown-digits">01h : 42m : 18s</span> for courier booking today from Lahore Hub!</span>
+      </div>
+      <a href="#catalog" class="dispatch-cta-btn">Book Before 4:00 PM Cutoff →</a>
+    </div>
+  </div>
+
+  <!-- ===================================================================
+       1. SHOP BY CATEGORY
+       =================================================================== -->
+  <section id="categories" class="shopify-section section-categories">
+    <div class="container">
+      <div class="shopify-section-header">
+        <h2 class="shopify-section-title">Shop by Category</h2>
+        <p class="shopify-section-subtitle">Find the exact supplies for your celebration</p>
+      </div>
+
+      <div class="categories-grid" id="category-tiles-container">
+        <!-- Rendered dynamically by app.js -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================================
+       2. TRENDING BESTSELLERS
+       =================================================================== -->
+  <section id="popular-items" class="shopify-section section-popular">
+    <div class="container">
+      <div class="shopify-section-header flex-between">
+        <div>
+          <h2 class="shopify-section-title">Trending Bestsellers</h2>
+          <p class="shopify-section-subtitle">Our most popular party essentials loved across Pakistan</p>
+        </div>
+        <a href="#catalog" class="shopify-view-all-link">View All Products (40+) →</a>
+      </div>
+
+      <!-- Popular Products Grid (Injected dynamically by app.js) -->
+      <div class="products-grid popular-products-grid" id="popular-products-grid">
+        <!-- Product Cards injected by app.js renderPopularItems() -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================================
+       3. SHOP BY OCCASION
+       =================================================================== -->
+  <section id="celebrations" class="shopify-section section-celebrations">
+    <div class="container">
+      <div class="shopify-section-header">
+        <h2 class="shopify-section-title">Shop by Occasion</h2>
+        <p class="shopify-section-subtitle">Curated party collections for every milestone event</p>
+      </div>
+
+      <div class="celebration-cards-grid">
+        <div class="celebration-card theme-birthday" onclick="filterByOccasion('birthday')">
+          <div class="celebration-icon">🎂</div>
+          <h4>Birthday Bash</h4>
+          <p>Sashes, spiral candles, number foil balloons & cake toppers</p>
+          <span class="celebration-link">Shop Birthday Sets →</span>
+        </div>
+
+        <div class="celebration-card theme-wedding" onclick="filterByOccasion('wedding')">
+          <div class="celebration-icon">💍</div>
+          <h4>Baat Pakki & Nikkah</h4>
+          <p>Date Fixed, Baat Pakki, Mehndi letter balloons & anar candles</p>
+          <span class="celebration-link">Shop Wedding Sets →</span>
+        </div>
+
+        <div class="celebration-card theme-bridal" onclick="filterByOccasion('bridal')">
+          <div class="celebration-icon">👰</div>
+          <h4>Bridal Shower</h4>
+          <p>Bride-to-be sashes, rose gold balloons & photo backdrops</p>
+          <span class="celebration-link">Shop Bridal Sets →</span>
+        </div>
+
+        <div class="celebration-card theme-packaging" onclick="filterByOccasion('packaging')">
+          <div class="celebration-icon">🎁</div>
+          <h4>Gift Packaging</h4>
+          <p>Holographic wrapping sheets, luxury ribbon gift bags</p>
+          <span class="celebration-link">Shop Packaging →</span>
+        </div>
+
+        <div class="celebration-card theme-religious" onclick="filterByOccasion('religious')">
+          <div class="celebration-icon">🌙</div>
+          <h4>Milad & Hajj Mubarak</h4>
+          <p>Golden calligraphy banners, crescent moon & Kaaba decor</p>
+          <span class="celebration-link">Shop Islamic Banners →</span>
+        </div>
+
+        <div class="celebration-card theme-sparkler" onclick="filterByOccasion('sparkler')">
+          <div class="celebration-icon">✨</div>
+          <h4>Poppers & Anar Sparklers</h4>
+          <p>Indoor safe cold sparkler candles & metallic confetti canons</p>
+          <span class="celebration-link">Shop Sparklers →</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================================
+       4. ALL PRODUCTS CATALOG
+       =================================================================== -->
+  <section id="catalog" class="shopify-section section-catalog">
+    <div class="container">
+      <!-- Section Header -->
+      <div class="shopify-section-header">
+        <h2 class="shopify-section-title">All Products</h2>
+        <p class="shopify-section-subtitle">Complete live inventory with real-time stock levels ready for dispatch</p>
+      </div>
+
+      <!-- Catalog Controls -->
+      <div class="catalog-header-bar">
+        <!-- Search Box -->
+        <div class="search-box-wrapper">
+          <span class="search-icon">🔍</span>
+          <input type="text" id="catalog-search" class="search-input" placeholder="Search balloons, candles, sashes, gift bags...">
+          <button type="button" id="btn-clear-search" class="btn-clear-search" style="display:none;" title="Clear search">✕</button>
+        </div>
+
+        <!-- Sort Select -->
+        <select id="catalog-sort" class="sort-select">
+          <option value="featured">Featured / Bestsellers</option>
+          <option value="price-low">Price: Low to High</option>
+          <option value="price-high">Price: High to Low</option>
+          <option value="stock">Stock Availability</option>
+          <option value="rating">Top Rated</option>
+        </select>
+      </div>
+
+      <!-- Category Filter Pills Bar -->
+      <div class="filter-pills-bar" id="category-pills-bar">
+        <!-- Rendered dynamically by app.js -->
+      </div>
+
+      <!-- Wholesale Alert Banner -->
+      <div class="wholesale-alert-strip">
+        <div class="wholesale-alert-left">
+          <span class="wholesale-alert-icon">💡</span>
+          <div class="wholesale-alert-text">
+            <span>Looking for <strong>Wholesale Bulk Discounts (30% - 45% OFF)</strong>? Toggle Wholesale Mode or order 10+ pcs!</span>
+          </div>
+        </div>
+        <button id="btn-quick-toggle-wholesale" class="btn-primary-party" style="padding: 8px 18px; font-size: 0.88rem;">
+          Toggle Wholesale Mode
+        </button>
+      </div>
+
+      <!-- Product Grid -->
+      <div class="products-grid" id="products-grid">
+        <!-- Product Cards injected by app.js -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================================
+       5. WHOLESALE & BULK SUPPLY DESK
+       =================================================================== -->
+  <section id="wholesale" class="shopify-section section-wholesale-desk">
+    <div class="container">
+      <div class="wholesale-box">
+        <div class="wholesale-text-col">
+          <div class="shopify-section-header" style="margin-bottom: 14px;">
+            <h2 class="shopify-section-title">Wholesale & Bulk Supply Desk</h2>
+            <p class="shopify-section-subtitle">Special trade rates for event decorators, balloon artists, schools & retailers</p>
+          </div>
+
+          <p style="color:var(--text-secondary); font-size:0.95rem; margin-bottom:20px; line-height:1.6;">
+            Whether you are an event decorator stocking up on 100-pack Tongle balloons, party poppers by the carton, or a gift shop needing wholesale rolls of metallic wrapping paper and bags, we provide unbeatable factory-direct rates with express cargo/courier dispatch across Pakistan.
+          </p>
+
+          <ul class="wholesale-perks-list">
+            <li class="wholesale-perk-item">
+              <span>⭐</span>
+              <span>Tiered wholesale margins (30% to 45% OFF)</span>
+            </li>
+            <li class="wholesale-perk-item">
+              <span>⚡</span>
+              <span>Same-day priority packing & dispatch</span>
+            </li>
+            <li class="wholesale-perk-item">
+              <span>🧾</span>
+              <span>Official sales invoice for tax & business accounts</span>
+            </li>
+            <li class="wholesale-perk-item">
+              <span>💬</span>
+              <span>Dedicated WhatsApp trade representative</span>
+            </li>
+          </ul>
+
+          <a href="https://wa.me/923008451998?text=Assalam%20o%20Alaikum!%20I%20am%20interested%20in%20Wholesale%20bulk%20pricing%20from%20Munir%20Ahmed%20Decorations" target="_blank" class="btn-primary-party">
+            <span>💬</span>
+            <span>Contact Wholesale Desk via WhatsApp</span>
+          </a>
+        </div>
+
+        <div class="wholesale-quick-calc">
+          <div class="calc-title">Bulk Discount Estimator</div>
+          <div class="calc-slider-group">
+            <label>
+              <span>Estimated Items Quantity:</span>
+              <strong id="calc-qty-display">25 Units</strong>
+            </label>
+            <input type="range" id="calc-qty-slider" class="calc-slider" min="5" max="200" step="5" value="25">
+          </div>
+
+          <div class="calc-result-box">
+            <div>
+              <span style="font-size:0.8rem; color:var(--text-muted); display:block;">Estimated Wholesale Margin:</span>
+              <strong style="color:#2ed573; font-size:1.2rem;" id="calc-savings-display">35% Wholesale Margin</strong>
+            </div>
+            <span class="calc-discount-badge" id="calc-tier-badge">Tier 2 Trade</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================================
+       6. PAYMENT & DELIVERY OPTIONS
+       =================================================================== -->
+  <section id="payments" class="shopify-section section-payments">
+    <div class="container">
+      <div class="shopify-section-header" style="text-align: center; max-width: 650px; margin: 0 auto 36px;">
+        <h2 class="shopify-section-title">Payment & Delivery Options</h2>
+        <p class="shopify-section-subtitle">Convenient, trusted, and familiar payment methods across Pakistan</p>
+      </div>
+
+      <div class="payments-grid">
+        <!-- Cash on Delivery -->
+        <div class="payment-card">
+          <div class="payment-header">
+            <span class="payment-icon-large">💵</span>
+            <div class="payment-title-box">
+              <h4>Cash on Delivery (COD)</h4>
+            </div>
+          </div>
+          <p class="payment-desc">
+            Pay cash directly to the delivery rider at your doorstep. Available nationwide across 250+ Pakistani cities via TCS, Leopards, and Trax couriers.
+          </p>
+          <div class="payment-details-box">
+            COD Rider Service | Delivery Fee PKR 250 (FREE above PKR 3,500)
+          </div>
+        </div>
+
+        <!-- JazzCash Direct -->
+        <div class="payment-card">
+          <div class="payment-header">
+            <span class="payment-icon-large">📱</span>
+            <div class="payment-title-box">
+              <h4>JazzCash Mobile Account</h4>
+            </div>
+          </div>
+          <p class="payment-desc">
+            Instant transfer from JazzCash Mobile App, Till Code, or any JazzCash retailer shop in Pakistan.
+          </p>
+          <div class="payment-details-box">
+            Account: 0300-8451998<br>
+            Title: Munir Ahmed (Decorations Co.)
+          </div>
+        </div>
+
+        <!-- EasyPaisa Direct -->
+        <div class="payment-card">
+          <div class="payment-header">
+            <span class="payment-icon-large">🟢</span>
+            <div class="payment-title-box">
+              <h4>EasyPaisa Account</h4>
+            </div>
+          </div>
+          <p class="payment-desc">
+            Send payments directly to our registered EasyPaisa merchant account. Zero transaction fees and instant confirmation.
+          </p>
+          <div class="payment-details-box">
+            Account: 0300-8451998<br>
+            Title: Munir Ahmed (Decorations Co.)
+          </div>
+        </div>
+
+        <!-- Meezan Bank & Raast -->
+        <div class="payment-card">
+          <div class="payment-header">
+            <span class="payment-icon-large">🏦</span>
+            <div class="payment-title-box">
+              <h4>Meezan Bank & Raast</h4>
+            </div>
+          </div>
+          <p class="payment-desc">
+            Instant 24/7 bank transfer via Raast ID or Meezan IBAN from any Pakistani mobile banking app (HBL, MCB, Allied, Alfalah, UBL).
+          </p>
+          <div class="payment-details-box">
+            Raast ID: 03008451998<br>
+            IBAN: PK42MEZN0001234567890101
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================================
+       FOOTER
+       =================================================================== -->
+  <footer class="main-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <div class="brand-wrapper" style="margin-bottom: 16px;">
+            <div class="brand-icon-box">🎈</div>
+            <div class="brand-title-box">
+              <span class="brand-name">MUNIR AHMED</span>
+              <span class="brand-sub">PARTY & CELEBRATIONS</span>
+            </div>
+          </div>
+          <p style="color:var(--text-secondary); font-size:0.88rem; line-height:1.6; margin-bottom:16px;">
+            Pakistan's trusted destination for premium celebration accessories, foil balloons, party poppers, cake toppers, sparkler candles, and luxury gift packaging since 1998.
+          </p>
+          <div style="font-size:0.85rem; color:#ffc048; line-height:1.6;">
+            📍 Royal Market, Near Hall Road & Liberty, Lahore, Pakistan<br>
+            📞 Helpline / WhatsApp: +92 300 8451998
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Product Lines</h4>
+          <ul class="footer-links">
+            <li><a href="#catalog" onclick="selectCategory('foil-balloons')">Foil Balloons & Letter Sets</a></li>
+            <li><a href="#catalog" onclick="selectCategory('gift-packaging')">Gift Wrapping Paper & Bags</a></li>
+            <li><a href="#catalog" onclick="selectCategory('party-sashes')">Birthday & Bride Sashes</a></li>
+            <li><a href="#catalog" onclick="selectCategory('candles-sparklers')">Anar Candles & Sparklers</a></li>
+            <li><a href="#catalog" onclick="selectCategory('cake-toppers')">Acrylic Cake Toppers</a></li>
+            <li><a href="#catalog" onclick="selectCategory('balloon-kits')">DiMi Balloon Arch Kits</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Customer Care</h4>
+          <ul class="footer-links">
+            <li><a href="track.html" style="color: #2ed573; font-weight: 700;">🚚 Track Parcel Live</a></li>
+            <li><a href="#payments">Nationwide Delivery Rates</a></li>
+            <li><a href="#payments">Payment Options (COD / JazzCash)</a></li>
+            <li><a href="#wholesale">Wholesale & Trade Desk</a></li>
+            <li><a href="admin.html" style="color: #ffc048;">🔒 Shop Owner Admin Desk</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Order On WhatsApp</h4>
+          <p style="color:var(--text-secondary); font-size:0.88rem; margin-bottom:14px; line-height:1.5;">
+            Need items delivered urgently for an upcoming event? Chat directly with our shop dispatch team.
+          </p>
+          <a href="https://wa.me/923008451998?text=Assalam%20o%20Alaikum!%20I%20need%20urgent%20party%20items%20from%20Munir%20Ahmed%20Decorations" target="_blank" class="btn-whatsapp-nav" style="width: 100%; justify-content: center;">
+            <span>💬</span>
+            <span>Chat on WhatsApp: 0300-8451998</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="footer-bottom-bar">
+        <div>
+          © 2026 Munir Ahmed Decorations Co. All Rights Reserved. Serving celebrations across Pakistan since 1998.
+        </div>
+        <div>
+          <span>🇵🇰 Trusted by over 45,000+ Pakistani Families & Event Planners</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===================================================================
+       MOBILE STICKY BOTTOM APP-STYLE NAVIGATION BAR
+       =================================================================== -->
+  <nav class="mobile-bottom-nav" aria-label="Mobile Navigation">
+    <a href="#home" class="mobile-nav-btn active">
+      <span class="mobile-nav-icon">🏠</span>
+      <span>Home</span>
+    </a>
+    <a href="#categories" class="mobile-nav-btn">
+      <span class="mobile-nav-icon">📂</span>
+      <span>Categories</span>
+    </a>
+    <a href="#catalog" class="mobile-nav-btn" onclick="document.getElementById('catalog-search').focus()">
+      <span class="mobile-nav-icon">🔍</span>
+      <span>Search</span>
+    </a>
+    <button type="button" class="mobile-nav-btn" onclick="openCart()">
+      <span class="mobile-nav-icon">🛒</span>
+      <span>Cart</span>
+      <span id="mobile-cart-badge" class="mobile-cart-badge" style="display:none;">0</span>
+    </button>
+    <a href="https://wa.me/923008451998?text=Assalam%20o%20Alaikum!%20I%20want%20to%20order%20party%20items" target="_blank" class="mobile-nav-btn" style="color:#25d366;">
+      <span class="mobile-nav-icon">💬</span>
+      <span>WhatsApp</span>
+    </a>
+  </nav>
+
+  <!-- ===================================================================
+       CART SLIDE-OVER DRAWER
+       =================================================================== -->
+  <div id="cart-overlay" class="cart-overlay"></div>
+  <aside id="cart-drawer" class="cart-drawer" aria-label="Shopping Cart">
+    <div class="cart-drawer-header">
+      <div class="cart-title">
+        <span>🛒</span>
+        <span>Your Party Cart</span>
+      </div>
+      <button id="btn-close-cart" class="btn-close-drawer" title="Close Cart">✕</button>
+    </div>
+
+    <!-- Free Delivery Progress Tracker -->
+    <div class="delivery-meter-box">
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <span id="delivery-meter-text">Add PKR 3,500 for FREE Delivery</span>
+        <strong id="delivery-meter-status" style="color:#2ed573;">PKR 250 Standard</strong>
+      </div>
+      <div class="delivery-meter-bar-track">
+        <div id="delivery-meter-bar" class="delivery-meter-bar-fill"></div>
+      </div>
+    </div>
+
+    <!-- Items List -->
+    <div id="cart-items-container" class="cart-items-container">
+      <!-- Injected by app.js -->
+    </div>
+
+    <!-- Cart Footer -->
+    <div class="cart-drawer-footer">
+      <div class="cart-summary-line">
+        <span>Items Subtotal:</span>
+        <strong id="cart-subtotal">PKR 0</strong>
+      </div>
+      <div class="cart-summary-line" id="cart-savings-row" style="display:none; color:#2ed573;">
+        <span>Wholesale Bulk Savings:</span>
+        <strong id="cart-savings">-PKR 0</strong>
+      </div>
+      <div class="cart-summary-line">
+        <span>Nationwide Courier Delivery:</span>
+        <strong id="cart-shipping">PKR 0</strong>
+      </div>
+      <div class="cart-summary-line total-line">
+        <span>Total Payable:</span>
+        <span class="gold-text" id="cart-total">PKR 0</span>
+      </div>
+
+      <div class="cart-actions-column">
+        <button id="btn-proceed-checkout" class="btn-checkout-drawer">
+          <span>Proceed to Checkout 🛍️</span>
+        </button>
+        <button id="btn-whatsapp-direct-checkout" class="btn-whatsapp-cart">
+          <span>💬</span>
+          <span>Order Directly via WhatsApp</span>
+        </button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ===================================================================
+       CHECKOUT MODAL
+       =================================================================== -->
+  <div id="checkout-modal" class="modal-backdrop">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Complete Your Order</h3>
+        <button class="btn-modal-close" onclick="closeCheckout()">✕</button>
+      </div>
+
+      <div class="modal-body">
+        <form id="checkout-form" onsubmit="handleOrderSubmit(event)">
+          <!-- Shipping Address -->
+          <h4 style="font-family:var(--font-heading); margin-bottom:14px; color:var(--brand-heading-color);">1. Customer & Delivery Address</h4>
+
+          <div class="form-row-2">
+            <div class="form-group">
+              <label for="cust-name">Full Name *</label>
+              <input type="text" id="cust-name" class="form-input" placeholder="e.g. Ali Raza" required>
+            </div>
+            <div class="form-group">
+              <label for="cust-phone">Pakistani Mobile / WhatsApp *</label>
+              <input type="tel" id="cust-phone" class="form-input" placeholder="0300-1234567" required pattern="03[0-9]{2}-?[0-9]{7}">
+            </div>
+          </div>
+
+          <div class="form-row-2">
+            <div class="form-group">
+              <label for="cust-city">Delivery City *</label>
+              <select id="cust-city" class="form-select" required onchange="handleCityChange(this.value)">
+                <!-- Populated dynamically -->
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="cust-area">Neighborhood / Town / Tehsil *</label>
+              <input type="text" id="cust-area" class="form-input" placeholder="e.g. Gulberg III / DHA Phase 5" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="cust-address">Complete Street Address *</label>
+            <input type="text" id="cust-address" class="form-input" placeholder="House #, Street #, Near Landmark" required>
+          </div>
+
+          <div class="form-group">
+            <label for="cust-notes">Party Date / Special Instructions (Optional)</label>
+            <input type="text" id="cust-notes" class="form-input" placeholder="e.g. Urgent! Birthday is tomorrow evening">
+          </div>
+
+          <!-- Payment Options -->
+          <h4 style="font-family:var(--font-heading); margin:20px 0 14px; color:var(--brand-heading-color);">2. Select Payment Method</h4>
+
+          <div class="payment-selector-grid">
+            <div class="payment-radio-card active" data-method="cod" onclick="selectPaymentMethod('cod')">
+              <input type="radio" name="payment-method" id="pay-cod" value="cod" checked>
+              <label for="pay-cod" style="cursor:pointer; margin:0;">
+                <strong>💵 Cash on Delivery (COD)</strong>
+                <span style="display:block; font-size:0.75rem; color:var(--text-muted);">Pay cash to courier rider</span>
+              </label>
+            </div>
+
+            <div class="payment-radio-card" data-method="jazzcash" onclick="selectPaymentMethod('jazzcash')">
+              <input type="radio" name="payment-method" id="pay-jazzcash" value="jazzcash">
+              <label for="pay-jazzcash" style="cursor:pointer; margin:0;">
+                <strong>📱 JazzCash Direct</strong>
+                <span style="display:block; font-size:0.75rem; color:var(--text-muted);">App / Till 0300-8451998</span>
+              </label>
+            </div>
+
+            <div class="payment-radio-card" data-method="easypaisa" onclick="selectPaymentMethod('easypaisa')">
+              <input type="radio" name="payment-method" id="pay-easypaisa" value="easypaisa">
+              <label for="pay-easypaisa" style="cursor:pointer; margin:0;">
+                <strong>🟢 EasyPaisa Direct</strong>
+                <span style="display:block; font-size:0.75rem; color:var(--text-muted);">Account 0300-8451998</span>
+              </label>
+            </div>
+
+            <div class="payment-radio-card" data-method="meezan" onclick="selectPaymentMethod('meezan')">
+              <input type="radio" name="payment-method" id="pay-meezan" value="meezan">
+              <label for="pay-meezan" style="cursor:pointer; margin:0;">
+                <strong>🏦 Meezan & Raast</strong>
+                <span style="display:block; font-size:0.75rem; color:var(--text-muted);">Raast: 03008451998</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Transaction Ref Box (for JazzCash / EasyPaisa / Meezan) -->
+          <div id="payment-ref-container" class="payment-account-reveal" style="display:none;">
+            <div id="payment-instructions-text" style="margin-bottom:8px; line-height:1.5;"></div>
+            <div class="form-group" style="margin-bottom:0;">
+              <label for="tx-ref">Transaction ID / TID (from SMS or receipt):</label>
+              <input type="text" id="tx-ref" class="form-input" placeholder="e.g. TID 9876543210">
+            </div>
+          </div>
+
+          <!-- Order Summary in Checkout -->
+          <div style="background:#090c15; border-radius:14px; padding:16px; margin:20px 0; border:1px solid var(--border-subtle);">
+            <div style="display:flex; justify-content:space-between; margin-bottom:6px; font-size:0.9rem;">
+              <span>Order Subtotal:</span>
+              <strong id="modal-subtotal">PKR 0</strong>
+            </div>
+            <div style="display:flex; justify-content:space-between; margin-bottom:6px; font-size:0.9rem;">
+              <span>Courier Delivery Fee:</span>
+              <strong id="modal-shipping">PKR 0</strong>
+            </div>
+            <div style="display:flex; justify-content:space-between; font-size:1.2rem; font-weight:800; border-top:1px solid var(--border-subtle); padding-top:8px; margin-top:8px;">
+              <span>Grand Total:</span>
+              <span class="gold-text" id="modal-total">PKR 0</span>
+            </div>
+          </div>
+
+          <button type="submit" id="btn-submit-order" class="btn-submit-order">
+            Confirm & Place Order 🛍️
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================================================================
+       QUICK VIEW PRODUCT MODAL
+       =================================================================== -->
+  <div id="quick-view-modal" class="modal-backdrop">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 id="qv-title">Product Details</h3>
+        <button class="btn-modal-close" onclick="closeQuickView()">✕</button>
+      </div>
+      <div class="modal-body" id="qv-body">
+        <!-- Rendered dynamically -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================================================================
+       ORDER SUCCESS MODAL
+       =================================================================== -->
+  <div id="order-success-modal" class="modal-backdrop">
+    <div class="modal-card" style="text-align:center;">
+      <div class="modal-body" style="padding:40px 28px;">
+        <div style="font-size:3.5rem; margin-bottom:12px;">🎉</div>
+        <h2 style="font-family:var(--font-heading); font-size:2rem; margin-bottom:6px; color:var(--brand-heading-color);">Order Booked Successfully!</h2>
+        <p class="font-urdu" style="font-size:1.2rem; color:var(--party-gold); margin-bottom:14px;">آپ کا آرڈر کامیابی سے بک ہو چکا ہے</p>
+        
+        <div style="background:var(--bg-input); border-radius:14px; padding:18px; margin:20px 0; border:1px solid var(--border-subtle); text-align:left;">
+          <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+            <span>Order Reference:</span>
+            <strong id="success-order-id" style="color:var(--party-cyan);">MAD-PK-00000</strong>
+          </div>
+          <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+            <span>Total Payable:</span>
+            <strong id="success-order-total" class="gold-text">PKR 0</strong>
+          </div>
+          <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+            <span>Payment Method:</span>
+            <strong id="success-payment-method">Cash on Delivery</strong>
+          </div>
+          <div style="display:flex; justify-content:space-between;">
+            <span>Dispatch Status:</span>
+            <strong style="color:#2ed573;">Confirmed & Packing</strong>
+          </div>
+        </div>
+
+        <p style="color:var(--text-secondary); font-size:0.9rem; margin-bottom:24px;">
+          Our dispatch team will call or message your WhatsApp before booking the courier. You can also send this order slip directly to WhatsApp right now!
+        </p>
+
+        <div style="display:flex; flex-direction:column; gap:12px;">
+          <a id="btn-success-whatsapp" href="#" target="_blank" class="btn-whatsapp-cart" style="font-size:1rem; padding:14px;">
+            <span>💬</span>
+            <span>Send Order Slip to Shop WhatsApp (0300-8451998)</span>
+          </a>
+          <button class="btn-secondary-party" onclick="closeOrderSuccess()" style="width:100%; justify-content:center;">
+            Continue Shopping
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================================================================
+       ADMIN INVENTORY & STOCK MANAGER MODAL
+       =================================================================== -->
+  <div id="admin-modal" class="modal-backdrop">
+    <div class="modal-card" style="max-width:850px;">
+      <div class="modal-header">
+        <h3>Shop Inventory & Stock Manager</h3>
+        <button class="btn-modal-close" onclick="closeAdmin()">✕</button>
+      </div>
+      <div class="modal-body">
+        <div id="admin-login-box">
+          <p style="color:var(--text-secondary); margin-bottom:12px;">Enter 4-Digit Admin Passcode to manage real stock counts and prices:</p>
+          <div style="display:flex; gap:10px; max-width:320px;">
+            <input type="password" id="admin-pin-input" class="form-input" placeholder="PIN (Default: 1998)" maxlength="6">
+            <button class="btn-primary-party" onclick="handleAdminLogin()" style="padding:10px 18px;">Unlock</button>
+          </div>
+        </div>
+
+        <div id="admin-dashboard-box" style="display:none;">
+          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:20px;">
+            <div>
+              <h4 style="color:#2ed573;">Admin Authorized</h4>
+              <span style="font-size:0.8rem; color:var(--text-muted);">Adjust stock count or reset catalog to default seed values</span>
+            </div>
+            <div style="display:flex; gap:10px;">
+              <button class="btn-secondary-party" onclick="resetMasterCatalog()" style="font-size:0.8rem; padding:8px 14px;">
+                🔄 Reset Stock to Defaults
+              </button>
+              <button class="btn-secondary-party" onclick="handleAdminLogout()" style="font-size:0.8rem; padding:8px 14px; color:#ff4757;">
+                Lock Portal
+              </button>
+            </div>
+          </div>
+
+          <div class="admin-table-wrapper">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Product</th>
+                  <th>Category</th>
+                  <th>Retail (PKR)</th>
+                  <th>Wholesale (PKR)</th>
+                  <th>Current Stock</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="admin-inventory-tbody">
+                <!-- Injected by app.js -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Floating Party Theme & Mood Controls Widget -->
+  <aside class="floating-theme-switch-widget" aria-label="Theme and Party Mood Controls">
+    <button id="btn-floating-theme" class="btn-floating-theme-toggle" title="Switch Theme (Party Light / Disco Dark)">
+      <span id="floating-theme-icon">☀️</span>
+      <span id="floating-theme-text">Party Light</span>
+    </button>
+    <div class="party-mood-picker" title="Party Celebration Moods">
+      <button class="mood-btn" data-mood="carnival" title="Carnival Day (Bright Festive Colors)">🎉</button>
+      <button class="mood-btn" data-mood="birthday" title="Birthday Bash (Bubblegum Pink & Gold)">🎂</button>
+      <button class="mood-btn" data-mood="shaadi" title="Shaadi & Mehndi (Royal Gold & Emerald)">💍</button>
+      <button class="mood-btn" data-mood="disco" title="Disco Rave (Neon Night Lights)">🌙</button>
+    </div>
+  </aside>
+
+  <!-- Floating Quick Celebration Popper Button -->
+  <button id="btn-floating-party" class="btn-floating-party-popper" title="Burst Confetti Anytime!">
+    <span class="floating-popper-icon">🎉</span>
+    <span class="floating-popper-label">Celebrate!</span>
+  </button>
+
+  <!-- Toast Container -->
+  <div id="toast-container"></div>
+
+  <!-- JavaScript Modules (Strict Load Order) -->
+  <script src="js/security.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

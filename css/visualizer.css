@@ -1,0 +1,416 @@
+/* ===================================================================
+   MUNIR AHMED ROYAL EVENT STAGE & PARTY VISUALIZER STYLES
+   =================================================================== */
+
+.stage-preview-box {
+  position: relative;
+  width: 100%;
+  height: 480px;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid var(--border-gold);
+  box-shadow: inset 0 0 60px rgba(0, 0, 0, 0.7), 0 15px 35px rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  transition: all 0.5s ease;
+}
+
+/* Ambient Lighting Filters */
+.lighting-day {
+  filter: brightness(1.08) contrast(1.02);
+}
+
+.lighting-evening {
+  filter: brightness(0.85) sepia(0.2) saturate(1.2);
+}
+
+.lighting-party {
+  filter: brightness(0.9) hue-rotate(25deg) contrast(1.15);
+  animation: party-strobe 4s infinite alternate;
+}
+
+@keyframes party-strobe {
+  0% { filter: brightness(0.9) hue-rotate(0deg); }
+  50% { filter: brightness(1.1) hue-rotate(45deg); }
+  100% { filter: brightness(0.85) hue-rotate(-20deg); }
+}
+
+/* Backdrop Drapes */
+.stage-backdrop-drapes {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  border-top: 18px solid var(--gold-primary);
+  background-image: 
+    repeating-linear-gradient(90deg, 
+      rgba(255, 255, 255, 0.03) 0px, 
+      rgba(255, 255, 255, 0.03) 30px, 
+      rgba(0, 0, 0, 0.25) 30px, 
+      rgba(0, 0, 0, 0.25) 60px
+    );
+  pointer-events: none;
+  z-index: 1;
+}
+
+.stage-crest {
+  position: absolute;
+  top: 25px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(0, 0, 0, 0.45);
+  border: 1px solid var(--border-gold);
+  padding: 6px 20px;
+  border-radius: 30px;
+  color: var(--gold-light);
+  font-family: var(--font-urdu);
+  font-size: 1.15rem;
+  letter-spacing: 1px;
+}
+
+/* Fairy Lights Waterfall Strings */
+.stage-ambient-lights {
+  position: absolute;
+  top: 0; left: 0; right: 0; height: 100%;
+  pointer-events: none;
+  z-index: 2;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.stage-ambient-lights.active {
+  opacity: 1;
+}
+
+.light-strings {
+  width: 100%;
+  height: 100%;
+  background-image: radial-gradient(#ffe082 1.5px, transparent 1.5px);
+  background-size: 24px 28px;
+  animation: sparkle-fall 3s infinite linear;
+}
+
+@keyframes sparkle-fall {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(28px); }
+}
+
+/* Floral Arch */
+.prop-floral-arch {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  height: 85%;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.arch-frame {
+  width: 100%;
+  height: 100%;
+  border-top-left-radius: 260px;
+  border-top-right-radius: 260px;
+  border: 24px solid #f59e0b;
+  border-bottom: none;
+  box-shadow: 0 0 25px rgba(245, 158, 11, 0.5), inset 0 0 20px rgba(0,0,0,0.4);
+  position: relative;
+}
+
+.prop-floral-arch.roses .arch-frame {
+  border-color: #be123c;
+  box-shadow: 0 0 25px rgba(190, 18, 60, 0.6);
+}
+
+.prop-floral-arch.motia .arch-frame {
+  border-color: #fef08a;
+  box-shadow: 0 0 25px rgba(254, 240, 138, 0.6);
+}
+
+.lanterns-hanging {
+  position: absolute;
+  top: 25px;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  font-size: 1.8rem;
+}
+
+.lantern {
+  animation: lantern-sway 3s ease-in-out infinite alternate;
+}
+.lantern.l2 { animation-delay: 0.8s; }
+.lantern.l3 { animation-delay: 1.6s; }
+
+@keyframes lantern-sway {
+  0% { transform: rotate(-5deg); }
+  100% { transform: rotate(5deg); }
+}
+
+/* Balloon Garland Arch */
+.prop-balloon-arch {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 88%;
+  height: 82%;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.balloon-garland-visual {
+  width: 100%;
+  height: 100%;
+  border-top-left-radius: 240px;
+  border-top-right-radius: 240px;
+  border: 32px dotted #ec4899;
+  border-bottom: none;
+  filter: drop-shadow(0 0 12px rgba(236, 72, 153, 0.6));
+}
+
+.neon-sign-glow {
+  position: absolute;
+  top: 35%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: var(--font-serif);
+  font-size: 1.7rem;
+  font-weight: 800;
+  color: #fff;
+  text-shadow: 0 0 10px #ec4899, 0 0 20px #ec4899, 0 0 40px #d946ef;
+  white-space: nowrap;
+}
+
+/* Maharaja Sofa Prop */
+.prop-center-sofa {
+  position: absolute;
+  bottom: 25px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.maharaja-sofa {
+  width: 260px;
+  height: 100px;
+  background: linear-gradient(180deg, #781729 0%, #4c0d19 100%);
+  border: 4px solid var(--gold-primary);
+  border-radius: 40px 40px 10px 10px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  position: relative;
+}
+
+.maharaja-sofa::before {
+  content: '';
+  position: absolute;
+  top: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 30px;
+  background: var(--gold-gradient);
+  border-radius: 50px 50px 0 0;
+}
+
+.persian-rug {
+  width: 320px;
+  height: 25px;
+  background: repeating-linear-gradient(90deg, #881337, #881337 15px, #c5a059 15px, #c5a059 30px);
+  border-radius: 4px;
+  margin-top: 6px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.6);
+  border: 1px solid var(--gold-dark);
+}
+
+/* Cake Table Prop */
+.prop-cake-table {
+  position: absolute;
+  bottom: 25px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.pedestal-table {
+  width: 130px;
+  height: 110px;
+  background: linear-gradient(180deg, #ffffff 0%, #e2e8f0 100%);
+  border: 3px solid var(--gold-primary);
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
+}
+
+.cake-display {
+  position: absolute;
+  top: -85px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.cake-layer {
+  background: #fff5f5;
+  border: 2px solid #fed7aa;
+  border-radius: 6px;
+}
+.cake-layer.tier1 { width: 75px; height: 26px; }
+.cake-layer.tier2 { width: 55px; height: 22px; }
+.cake-layer.tier3 { width: 38px; height: 18px; }
+
+.cake-topper-visual {
+  position: absolute;
+  top: -24px;
+  background: var(--gold-gradient);
+  color: #061811;
+  font-size: 0.65rem;
+  font-weight: 800;
+  padding: 2px 8px;
+  border-radius: 12px;
+  white-space: nowrap;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+
+/* Traditional Dholki side props */
+.prop-dholki-side {
+  position: absolute;
+  bottom: 25px;
+  left: 14%;
+  z-index: 5;
+}
+
+.desi-thaal-mini {
+  font-size: 2.2rem;
+  filter: drop-shadow(0 4px 10px rgba(0,0,0,0.6));
+}
+
+/* Cold Pyro Fountain Jets */
+.prop-cold-pyro {
+  position: absolute;
+  bottom: 20px;
+  z-index: 6;
+  width: 25px;
+  height: 180px;
+}
+.prop-cold-pyro.left { left: 8%; }
+.prop-cold-pyro.right { right: 8%; }
+
+.spark-jets {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(0deg, rgba(255,255,255,0.95) 0%, rgba(254,240,138,0.7) 40%, transparent 100%);
+  clip-path: polygon(40% 100%, 60% 100%, 100% 0%, 0% 0%);
+  animation: spark-spray 0.15s infinite alternate;
+}
+
+@keyframes spark-spray {
+  0% { transform: scaleY(0.9) scaleX(0.8); opacity: 0.85; }
+  100% { transform: scaleY(1.1) scaleX(1.2); opacity: 1; }
+}
+
+/* Popper Blast Streamers */
+.prop-popper-blast {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  pointer-events: none;
+  z-index: 10;
+  overflow: hidden;
+}
+
+.streamer {
+  position: absolute;
+  width: 8px;
+  height: 120px;
+  border-radius: 4px;
+  animation: blast-fly 2.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+.streamer.s1 { left: 20%; background: #fbbf24; transform: rotate(45deg); animation-delay: 0.1s; }
+.streamer.s2 { left: 40%; background: #ec4899; transform: rotate(-30deg); animation-delay: 0.2s; }
+.streamer.s3 { left: 60%; background: #34d399; transform: rotate(15deg); animation-delay: 0.15s; }
+.streamer.s4 { left: 75%; background: #d4af37; transform: rotate(-45deg); animation-delay: 0.25s; }
+.streamer.s5 { left: 50%; background: #60a5fa; transform: rotate(0deg); animation-delay: 0.05s; }
+
+@keyframes blast-fly {
+  0% { top: 90%; opacity: 1; transform: scale(0.5); }
+  50% { top: 20%; opacity: 0.9; transform: scale(1.2); }
+  100% { top: -100px; opacity: 0; }
+}
+
+/* Pricing Display outside canvas */
+.viz-pricing-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px;
+  background: rgba(0, 0, 0, 0.45);
+  border: 1px solid var(--border-gold);
+  border-radius: 12px;
+  padding: 16px 20px;
+  margin-top: 16px;
+}
+
+.viz-title-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.viz-theme-badge {
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  color: var(--gold-light);
+  font-weight: 700;
+}
+
+.viz-item-count {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+.viz-price-math {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.viz-orig-price {
+  font-size: 0.95rem;
+  text-decoration: line-through;
+  color: var(--text-muted);
+}
+
+.viz-bundle-price {
+  font-family: var(--font-serif);
+  font-size: 1.55rem;
+  font-weight: 800;
+  color: #fff;
+}
+
+.viz-save-pill {
+  background: rgba(16, 185, 129, 0.2);
+  border: 1px solid #10b981;
+  color: #34d399;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 6px;
+}

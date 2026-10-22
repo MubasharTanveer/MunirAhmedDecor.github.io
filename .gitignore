@@ -1,0 +1,5 @@
+﻿.DS_Store
+Thumbs.db
+*.tmp
+rendered_dom.html
+test_dom_opt.html

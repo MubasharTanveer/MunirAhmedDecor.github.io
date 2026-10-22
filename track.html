@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Track Your Order | Munir Ahmed Decorations (منیر احمد ڈیکوریشنز)</title>
+  
+  <meta name="description" content="Track your party supplies, balloons, and decoration order live from Munir Ahmed Decorations Lahore warehouse. Real-time TCS, Leopards & Trax dispatch status.">
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+  <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Noto+Nastaliq+Urdu:wght@400;700&display=swap">
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    .track-hero {
+      padding: 60px 0 40px;
+      text-align: center;
+    }
+    .track-search-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 24px;
+      padding: 36px;
+      max-width: 650px;
+      margin: 0 auto 40px;
+      box-shadow: var(--shadow-lg);
+    }
+    .track-result-card {
+      background: var(--bg-card);
+      border: 1px solid rgba(108, 92, 231, 0.4);
+      border-radius: 24px;
+      padding: 36px;
+      max-width: 780px;
+      margin: 0 auto 60px;
+      box-shadow: var(--shadow-lg), 0 0 40px rgba(108, 92, 231, 0.15);
+      display: none;
+    }
+    .status-timeline {
+      display: flex;
+      justify-content: space-between;
+      position: relative;
+      margin: 36px 0 30px;
+    }
+    .status-timeline::before {
+      content: '';
+      position: absolute;
+      top: 18px;
+      left: 30px;
+      right: 30px;
+      height: 4px;
+      background: var(--border-subtle);
+      z-index: 1;
+    }
+    .timeline-step {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      flex: 1;
+    }
+    .step-icon-bubble {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--bg-input);
+      border: 3px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 10px;
+      font-size: 1.1rem;
+      color: var(--text-main);
+      transition: all 0.3s ease;
+    }
+    .timeline-step.completed .step-icon-bubble {
+      background: #2ed573;
+      border-color: #2ed573;
+      color: #fff;
+      box-shadow: 0 0 15px rgba(46, 213, 115, 0.5);
+    }
+    .timeline-step.active .step-icon-bubble {
+      background: var(--party-coral);
+      border-color: var(--party-coral);
+      color: #fff;
+      box-shadow: 0 0 15px rgba(255, 71, 87, 0.6);
+      animation: pulseBubble 1.5s infinite;
+    }
+    @keyframes pulseBubble {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+    .step-label {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--text-secondary);
+    }
+    .timeline-step.completed .step-label,
+    .timeline-step.active .step-label {
+      color: var(--brand-heading-color);
+    }
+    .order-items-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 18px;
+      font-size: 0.9rem;
+    }
+    .order-items-table th, .order-items-table td {
+      padding: 10px 14px;
+      text-align: left;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .order-items-table th {
+      background: var(--bg-input);
+      color: var(--text-muted);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Announcement Bar -->
+  <div class="top-announcement">
+    <div class="announcement-left">
+      <span class="badge-trust">EST. 1998</span>
+      <span>🇵🇰 Official Order Tracking Portal | Munir Ahmed Decorations Lahore</span>
+    </div>
+    <div class="announcement-right">
+      <a href="index.html" style="color:var(--party-cyan); text-decoration:none; font-weight:700; font-size:0.82rem;">
+        ← Back to Storefront
+      </a>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="main-header">
+    <div class="nav-container">
+      <a href="index.html" class="brand-wrapper">
+        <div class="brand-icon-box">🎉</div>
+        <div class="brand-title-box">
+          <span class="brand-name">MUNIR AHMED</span>
+          <span class="brand-sub">ORDER TRACKING DESK</span>
+          <span class="brand-urdu font-urdu">منیر احمد ڈیکوریشنز</span>
+        </div>
+      </a>
+
+      <div class="nav-actions">
+        <button id="btn-theme-toggle" class="btn-theme-toggle" title="Switch Theme (Party Light / Disco Dark)">
+          <span>☀️</span>
+          <span>Party Light</span>
+        </button>
+        <a href="https://wa.me/923008451998" target="_blank" class="btn-whatsapp-nav">
+          <span>💬</span>
+          <span>Helpline WhatsApp</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="track-hero">
+      <span class="hero-pill">📦 REAL-TIME PARCEL DISPATCH STATUS</span>
+      <h1 class="hero-title">Track Your Party Order Live</h1>
+      <p style="color:var(--text-secondary); max-width:550px; margin:0 auto;">
+        Enter your <strong>Order Reference ID</strong> (e.g. <code>MAD-LAH-88421</code>) received on your order confirmation screen or WhatsApp.
+      </p>
+    </section>
+
+    <!-- Search Form Card -->
+    <div class="track-search-card">
+      <form id="track-form" onsubmit="handleTrackSubmit(event)">
+        <div class="form-group">
+          <label for="track-order-id">Order Reference ID *</label>
+          <input type="text" id="track-order-id" class="form-input" placeholder="e.g. MAD-LAH-88421" required style="font-size:1.1rem; text-transform:uppercase;">
+        </div>
+
+        <div class="form-group">
+          <label for="track-phone">Customer Mobile Number (Optional Verification)</label>
+          <input type="tel" id="track-phone" class="form-input" placeholder="e.g. 0300-1234567">
+        </div>
+
+        <button type="submit" class="btn-primary-party" style="width:100%; justify-content:center; padding:14px; font-size:1.05rem;">
+          <span>🔍</span>
+          <span>Track Order Now</span>
+        </button>
+      </form>
+
+      <div style="margin-top:20px; font-size:0.82rem; color:var(--text-muted); text-align:center;">
+        Demo IDs to test: <code>MAD-PK-88421</code> (Lahore) | <code>MAD-PK-88419</code> (Karachi)
+      </div>
+    </div>
+
+    <!-- Live Result Card -->
+    <div id="track-result-card" class="track-result-card">
+      <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:16px; border-bottom:1px solid var(--border-subtle); padding-bottom:18px;">
+        <div>
+          <span style="font-size:0.8rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:1px;">Tracking Result for:</span>
+          <h2 id="res-order-id" style="font-family:var(--font-heading); font-size:1.8rem; color:#fff;">MAD-PK-88421</h2>
+          <span id="res-date" style="font-size:0.82rem; color:var(--text-secondary);">Booked: Oct 12, 2026</span>
+        </div>
+
+        <div style="text-align:right;">
+          <span id="res-status-badge" class="badge-featured" style="position:static; font-size:0.9rem; padding:6px 14px;">
+            Confirmed & Packing
+          </span>
+          <div id="res-courier-info" style="font-size:0.82rem; color:var(--party-cyan); margin-top:6px;">
+            Courier: TCS Express Pakistan
+          </div>
+        </div>
+      </div>
+
+      <!-- Timeline -->
+      <div class="status-timeline">
+        <div class="timeline-step completed" id="step-1">
+          <div class="step-icon-bubble">✓</div>
+          <div class="step-label">Order Placed</div>
+        </div>
+        <div class="timeline-step active" id="step-2">
+          <div class="step-icon-bubble">📦</div>
+          <div class="step-label">Packing in Warehouse</div>
+        </div>
+        <div class="timeline-step" id="step-3">
+          <div class="step-icon-bubble">🚚</div>
+          <div class="step-label">Dispatched (Rider)</div>
+        </div>
+        <div class="timeline-step" id="step-4">
+          <div class="step-icon-bubble">🏠</div>
+          <div class="step-label">Delivered</div>
+        </div>
+      </div>
+
+      <!-- Customer & Shipping Summary -->
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px; background:#0d1120; border-radius:16px; padding:20px; margin:24px 0; border:1px solid var(--border-subtle);">
+        <div>
+          <h4 style="font-size:0.92rem; color:#ffc048; margin-bottom:8px;">Customer & Delivery Info</h4>
+          <div id="res-cust-name" style="font-weight:700; color:#fff;">Ali Raza</div>
+          <div id="res-cust-phone" style="font-size:0.85rem; color:var(--text-secondary);">0300-1234567</div>
+          <div id="res-cust-address" style="font-size:0.85rem; color:var(--text-muted); margin-top:4px;">House 12, Street 4, Gulberg III, Lahore</div>
+        </div>
+
+        <div>
+          <h4 style="font-size:0.92rem; color:#ffc048; margin-bottom:8px;">Payment Details</h4>
+          <div>Method: <strong id="res-payment-method" style="color:#fff;">Cash on Delivery</strong></div>
+          <div>Status: <span id="res-payment-status" style="color:#2ed573; font-weight:700;">Pending Rider Collection</span></div>
+          <div style="margin-top:6px; font-size:1.15rem; font-weight:800; color:#fff;">
+            Total: <span class="gold-text" id="res-order-total">PKR 0</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Items Ordered -->
+      <h4 style="font-family:var(--font-heading); color:#fff; margin-bottom:8px;">Items in this Parcel</h4>
+      <table class="order-items-table">
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Qty</th>
+            <th>Unit Price</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody id="res-items-tbody">
+          <!-- Injected dynamically -->
+        </tbody>
+      </table>
+
+      <!-- WhatsApp Help Button -->
+      <div style="margin-top:28px; text-align:center;">
+        <a id="res-whatsapp-link" href="#" target="_blank" class="btn-whatsapp-cart" style="display:inline-flex; padding:12px 24px; text-decoration:none;">
+          <span>💬</span>
+          <span>Inquire About this Order via WhatsApp</span>
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <!-- JavaScript Modules -->
+  <script src="js/security.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/store.js"></script>
+  <script>
+    function handleTrackSubmit(event) {
+      event.preventDefault();
+      const orderIdInput = document.getElementById('track-order-id').value.trim().toUpperCase();
+      const phoneInput = document.getElementById('track-phone').value.trim();
+
+      const orders = window.Store.getOrders();
+      const found = orders.find(o => 
+        o.orderId.toUpperCase() === orderIdInput ||
+        o.orderId.toUpperCase().includes(orderIdInput)
+      );
+
+      const resultCard = document.getElementById('track-result-card');
+
+      if (!found) {
+        alert('Order ID not found in database. Please check your order ID or contact shop WhatsApp at 0300-8451998.');
+        resultCard.style.display = 'none';
+        return;
+      }
+
+      // Populate Result Card
+      document.getElementById('res-order-id').innerText = found.orderId;
+      document.getElementById('res-date').innerText = 'Booked: ' + new Date(found.date).toLocaleDateString('en-PK', {
+        year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit'
+      });
+      document.getElementById('res-status-badge').innerText = found.orderStatus || 'Confirmed & Packing';
+      document.getElementById('res-cust-name').innerText = found.customer.name;
+      document.getElementById('res-cust-phone').innerText = found.customer.phone;
+      document.getElementById('res-cust-address').innerText = found.customer.address;
+      document.getElementById('res-payment-method').innerText = (found.paymentMethod || 'COD').toUpperCase();
+      document.getElementById('res-payment-status').innerText = found.paymentStatus || 'Verified';
+      document.getElementById('res-order-total').innerText = 'PKR ' + (found.total || found.subtotal).toLocaleString();
+
+      // Timeline Steps
+      const s1 = document.getElementById('step-1');
+      const s2 = document.getElementById('step-2');
+      const s3 = document.getElementById('step-3');
+      const s4 = document.getElementById('step-4');
+
+      [s1, s2, s3, s4].forEach(s => { s.classList.remove('completed', 'active'); });
+      s1.classList.add('completed');
+
+      const st = (found.orderStatus || '').toLowerCase();
+      if (st.includes('pack')) {
+        s2.classList.add('active');
+      } else if (st.includes('dispatch') || st.includes('tcs') || st.includes('rider')) {
+        s2.classList.add('completed');
+        s3.classList.add('active');
+      } else if (st.includes('deliver')) {
+        s2.classList.add('completed');
+        s3.classList.add('completed');
+        s4.classList.add('completed');
+      } else {
+        s2.classList.add('active');
+      }
+
+      // Items Table
+      const tbody = document.getElementById('res-items-tbody');
+      tbody.innerHTML = (found.items || []).map(i => `
+        <tr>
+          <td><strong style="color:var(--brand-heading-color);">${i.title}</strong></td>
+          <td>${i.quantity}</td>
+          <td>PKR ${i.price.toLocaleString()}</td>
+          <td style="color:var(--party-gold); font-weight:700;">PKR ${(i.price * i.quantity).toLocaleString()}</td>
+        </tr>
+      `).join('');
+
+      // WhatsApp Link
+      const waMsg = `Assalam o Alaikum! I am checking status of my order ${found.orderId} (Customer: ${found.customer.name}, City: ${found.customer.city}). Please provide courier tracking update!`;
+      document.getElementById('res-whatsapp-link').href = `https://wa.me/923008451998?text=${encodeURIComponent(waMsg)}`;
+
+      resultCard.style.display = 'block';
+      resultCard.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Theme Toggle Handler
+    (function initTheme() {
+      const saved = localStorage.getItem('munir_party_theme') || 'light';
+      function applyTheme(theme) {
+        if (theme === 'dark') {
+          document.documentElement.setAttribute('data-theme', 'dark');
+        } else {
+          document.documentElement.removeAttribute('data-theme');
+        }
+        const btn = document.getElementById('btn-theme-toggle');
+        if (btn) {
+          btn.innerHTML = theme === 'dark' ? '<span>🌙</span><span>Disco Dark</span>' : '<span>☀️</span><span>Party Light</span>';
+          btn.classList.toggle('dark-active', theme === 'dark');
+        }
+      }
+      applyTheme(saved);
+      const btn = document.getElementById('btn-theme-toggle');
+      if (btn) {
+        btn.addEventListener('click', () => {
+          const current = localStorage.getItem('munir_party_theme') || 'light';
+          const next = current === 'light' ? 'dark' : 'light';
+          localStorage.setItem('munir_party_theme', next);
+          applyTheme(next);
+        });
+      }
+    })();
+  </script>
+</body>
+</html>
