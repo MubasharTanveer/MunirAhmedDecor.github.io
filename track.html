@@ -2,7 +2,8 @@
 <html lang="en" dir="ltr">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#ff2e63">
   <title>Track Your Order | Munir Ahmed Decorations (منیر احمد ڈیکوریشنز)</title>
   
   <meta name="description" content="Track your party supplies, balloons, and decoration order live from Munir Ahmed Decorations Lahore warehouse. Real-time TCS, Leopards & Trax dispatch status.">
@@ -13,6 +14,16 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Noto+Nastaliq+Urdu:wght@400;700&display=swap">
   <link rel="stylesheet" href="css/styles.css">
   <style>
+    @media (max-width: 600px) {
+      .track-hero { padding: 30px 14px 20px !important; }
+      .track-hero .hero-title { font-size: 1.85rem !important; }
+      .track-search-card { padding: 20px 16px !important; border-radius: 18px !important; }
+      .track-result-card { padding: 20px 16px !important; border-radius: 18px !important; }
+      .status-timeline { flex-direction: column; gap: 20px; align-items: flex-start; margin: 24px 0 20px; }
+      .status-timeline::before { top: 0; bottom: 0; left: 19px; right: auto; width: 3px; height: 100%; }
+      .timeline-step { display: flex; align-items: center; gap: 14px; text-align: left; }
+      .step-icon-bubble { margin: 0; flex-shrink: 0; }
+    }
     .track-hero {
       padding: 60px 0 40px;
       text-align: center;

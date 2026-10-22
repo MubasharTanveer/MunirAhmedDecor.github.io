@@ -2,7 +2,8 @@
 <html lang="en" dir="ltr">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#ff2e63">
   <title>Admin Control Center | Munir Ahmed Decorations (منیر احمد ڈیکوریشنز)</title>
   
   <meta name="robots" content="noindex, nofollow">
@@ -19,6 +20,7 @@
       background-image: var(--bg-body-gradient);
       color: var(--text-main);
       min-height: 100vh;
+      overflow-x: hidden;
     }
     .admin-navbar {
       background: var(--header-bg);
@@ -29,16 +31,44 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .admin-table-wrapper {
+      width: 100%;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      margin-bottom: 20px;
     }
     .admin-auth-gate {
       max-width: 420px;
-      margin: 100px auto;
+      margin: 60px auto 40px;
       background: var(--bg-card);
       border: 1px solid var(--border-glow);
       border-radius: 24px;
-      padding: 40px;
+      padding: 30px 20px;
       box-shadow: var(--shadow-lg), 0 0 40px rgba(108, 92, 231, 0.25);
       text-align: center;
+    }
+    @media (max-width: 600px) {
+      .admin-navbar {
+        padding: 10px 14px;
+      }
+      .admin-auth-gate {
+        margin: 30px 16px;
+        padding: 24px 16px;
+        border-radius: 18px;
+      }
+      .kpi-row {
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+      }
+      .kpi-card {
+        padding: 14px;
+      }
+      .kpi-val {
+        font-size: 1.45rem;
+      }
     }
     .admin-main-view {
       display: none;
