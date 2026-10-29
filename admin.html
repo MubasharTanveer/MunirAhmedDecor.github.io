@@ -285,7 +285,7 @@
 
     <form onsubmit="handlePinSubmit(event)">
       <div class="form-group">
-        <input type="password" id="admin-pin-field" class="form-input" placeholder="Enter PIN (Default: 1998)" maxlength="6" style="text-align:center; font-size:1.4rem; letter-spacing:4px;" required autofocus>
+        <input type="password" id="admin-pin-field" class="form-input" placeholder="Enter PIN (Default: 1970)" maxlength="6" style="text-align:center; font-size:1.4rem; letter-spacing:4px;" required autofocus>
       </div>
 
       <div id="pin-error-msg" style="color:#ff4757; font-size:0.82rem; margin-bottom:14px; display:none;">
@@ -583,7 +583,7 @@
       }
 
       const pin = document.getElementById('admin-pin-field').value.trim();
-      if (pin === '1998' || pin === '1234') {
+      if (pin === '1970' || pin === '1998' || pin === '1234') {
         document.getElementById('admin-auth-card').style.display = 'none';
         document.getElementById('admin-main-view').style.display = 'block';
         document.getElementById('btn-admin-logout').style.display = 'inline-flex';

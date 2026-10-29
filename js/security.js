@@ -162,7 +162,7 @@ const CyberDefense = (function() {
    * Cryptographic Hash generation for Tamper-Proof Order Lines
    * Uses simple lightweight SHA-256 / DJB2 HMAC simulation
    */
-  function computeItemHash(productId, unitPrice, secretSalt = 'MunirAhmed1998SecureSaltPK') {
+  function computeItemHash(productId, unitPrice, secretSalt = 'MunirAhmed1970SecureSaltPK') {
     const raw = `${productId}::${Number(unitPrice).toFixed(2)}::${secretSalt}`;
     let hash = 5381;
     for (let i = 0; i < raw.length; i++) {

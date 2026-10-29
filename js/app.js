@@ -1378,14 +1378,14 @@ Please confirm stock availability and payment details for delivery!`;
 
   window.handleAdminLogin = function() {
     const pin = document.getElementById('admin-pin-input').value.trim();
-    if (pin === '1998' || pin === '1234') {
+    if (pin === '1970' || pin === '1998' || pin === '1234') {
       isAdminLoggedIn = true;
       document.getElementById('admin-login-box').style.display = 'none';
       document.getElementById('admin-dashboard-box').style.display = 'block';
       renderAdminInventory();
       showToast('Admin Portal Unlocked!', 'success');
     } else {
-      showToast('Incorrect Admin PIN. (Default: 1998)', 'warning');
+      showToast('Incorrect Admin PIN. (Default: 1970)', 'warning');
     }
   };
 
