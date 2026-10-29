@@ -1,6 +1,6 @@
 /**
  * Munir Ahmed Luxury Celebrations & Event Decor
- * Pakistani Event Guest & Bulk Wholesale Estimator
+ * Pakistani Event Guest & Party Supplies Estimator
  */
 
 const BulkEstimator = (function() {
@@ -105,39 +105,19 @@ const BulkEstimator = (function() {
       }
     }
 
-    // Calculate wholesale discount tiers based on guest count & volume
-    let retailTotal = 0;
-    let wholesaleTotal = 0;
-
+    let totalAmount = 0;
     recommendedItems.forEach(item => {
-      retailTotal += item.price * item.qty;
-      wholesaleTotal += item.wholesalePrice * item.qty;
+      totalAmount += item.price * item.qty;
     });
 
-    // Volume bonus discount
-    let bulkTierName = 'Standard Bulk (15% OFF)';
-    let discountPct = 0.15;
-    if (guests >= 300) {
-      bulkTierName = 'Grand Banquet VIP Tier (30% OFF)';
-      discountPct = 0.30;
-    } else if (guests >= 150) {
-      bulkTierName = 'Event Planner Wholesale (22% OFF)';
-      discountPct = 0.22;
-    }
-
-    const discountedTotal = Math.round(retailTotal * (1 - discountPct));
-    const totalSavings = retailTotal - discountedTotal;
-    const costPerGuest = Math.round(discountedTotal / guests);
+    const costPerGuest = Math.round(totalAmount / guests);
 
     return {
       guests,
       eventType: type,
       recommendedItems,
-      retailTotal,
-      discountedTotal,
-      totalSavings,
-      costPerGuest,
-      bulkTierName
+      totalAmount,
+      costPerGuest
     };
   }
 

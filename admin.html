@@ -241,6 +241,12 @@
         <span>Party Light</span>
       </button>
 
+      <!-- Real-Time Order Sound Alert Toggle -->
+      <button id="btn-sound-alerts" class="btn-theme-toggle" onclick="toggleOrderSoundAlerts()" title="Toggle Real-Time Order Sound Alerts">
+        <span>🔔</span>
+        <span id="txt-sound-alerts">Alerts: ON</span>
+      </button>
+
       <div class="security-status-indicator" style="font-size:0.75rem;">
         <span class="security-dot"></span>
         <span>HMAC & Anti-Tamper Armed</span>
@@ -253,6 +259,21 @@
       </button>
     </div>
   </header>
+
+  <!-- REAL-TIME NEW ORDER NOTIFICATION BANNER -->
+  <div id="live-order-alert-banner" style="display:none; position:fixed; top:75px; left:50%; transform:translateX(-50%); z-index:99999; background:linear-gradient(135deg, #10b981 0%, #059669 100%); color:#fff; padding:16px 24px; border-radius:18px; box-shadow:0 10px 40px rgba(0,0,0,0.5), 0 0 30px rgba(16,185,129,0.5); border:2px solid #34d399; font-weight:700; max-width:92vw;">
+    <div style="display:flex; align-items:center; gap:14px; flex-wrap:wrap;">
+      <span style="font-size:2rem;">🔔</span>
+      <div>
+        <div style="font-size:1.05rem; font-weight:800;">NEW CUSTOMER ORDER RECEIVED! 🎉</div>
+        <div id="live-alert-text" style="font-size:0.88rem; opacity:0.95;"></div>
+      </div>
+      <div style="display:flex; gap:10px; margin-left:auto;">
+        <button onclick="viewNewOrdersTab()" style="background:#fff; color:#065f46; border:none; padding:6px 14px; border-radius:10px; font-weight:800; cursor:pointer; font-size:0.85rem;">View Orders</button>
+        <button onclick="document.getElementById('live-order-alert-banner').style.display='none'" style="background:rgba(0,0,0,0.2); border:none; color:#fff; padding:6px 10px; border-radius:8px; cursor:pointer;">✕</button>
+      </div>
+    </div>
+  </div>
 
   <!-- AUTHENTICATION GATE (CHALLENGE) -->
   <div id="admin-auth-card" class="admin-auth-gate">
@@ -368,8 +389,7 @@
             <tr>
               <th>ID & Product Title</th>
               <th>Category</th>
-              <th>Retail Price (PKR)</th>
-              <th>Wholesale (PKR)</th>
+              <th>Price (PKR)</th>
               <th>Current Stock</th>
               <th>Status</th>
               <th>Actions</th>
@@ -522,15 +542,9 @@
             </div>
           </div>
 
-          <div class="form-row-2">
-            <div class="form-group">
-              <label>Retail Price (PKR) *</label>
-              <input type="number" id="new-price" class="form-input" required value="450" min="10">
-            </div>
-            <div class="form-group">
-              <label>Wholesale Price (PKR) *</label>
-              <input type="number" id="new-who-price" class="form-input" required value="300" min="10">
-            </div>
+          <div class="form-group">
+            <label>Price (PKR) *</label>
+            <input type="number" id="new-price" class="form-input" required value="450" min="10">
           </div>
 
           <div class="form-group">
@@ -667,10 +681,7 @@
             </td>
             <td style="text-transform:capitalize; color:var(--text-secondary);">${p.category.replace('-', ' ')}</td>
             <td>
-              <input type="number" id="ret-${p.id}" value="${p.price}" class="admin-input-cell" style="width:85px;">
-            </td>
-            <td>
-              <input type="number" id="who-${p.id}" value="${p.wholesalePrice}" class="admin-input-cell" style="width:85px; color:#ffc048;">
+              <input type="number" id="pri-${p.id}" value="${p.price}" class="admin-input-cell" style="width:85px;">
             </td>
             <td>
               <input type="number" id="stk-${p.id}" value="${p.stock}" class="admin-input-cell" style="width:75px; color:#2ed573;">
@@ -687,11 +698,10 @@
     }
 
     function saveStockRow(productId) {
-      const ret = document.getElementById(`ret-${productId}`).value;
-      const who = document.getElementById(`who-${productId}`).value;
+      const pri = document.getElementById(`pri-${productId}`).value;
       const stk = document.getElementById(`stk-${productId}`).value;
 
-      window.Store.updateProductPrices(productId, ret, who);
+      window.Store.updateProductPrices(productId, pri);
       window.Store.updateProductStock(productId, stk);
       updateKPIs();
       alert(`Updated product ${productId} successfully!`);
@@ -860,7 +870,6 @@ Thank you for shopping with us! If you have questions, reply to this message.`;
         category: document.getElementById('new-cat').value,
         stock: parseInt(document.getElementById('new-stock').value, 10),
         price: parseFloat(document.getElementById('new-price').value),
-        wholesalePrice: parseFloat(document.getElementById('new-who-price').value),
         image: document.getElementById('new-img').value.trim(),
         description: document.getElementById('new-desc').value.trim()
       };
@@ -869,6 +878,107 @@ Thank you for shopping with us! If you have questions, reply to this message.`;
       updateKPIs();
       renderAdminStockTable();
       alert('New product added to catalog and warehouse!');
+    }
+
+    // REAL-TIME ORDER NOTIFICATION SYSTEM
+    let soundAlertsEnabled = localStorage.getItem('munir_admin_sound_alerts') !== 'false';
+    let adminAudioCtx = null;
+
+    function initAdminAudio() {
+      try {
+        const AudioClass = window.AudioContext || window.webkitAudioContext;
+        if (AudioClass) adminAudioCtx = new AudioClass();
+      } catch (e) {}
+    }
+
+    function playOrderAlertChime() {
+      if (!soundAlertsEnabled) return;
+      if (!adminAudioCtx) initAdminAudio();
+      if (adminAudioCtx && adminAudioCtx.state === 'suspended') {
+        adminAudioCtx.resume();
+      }
+      if (!adminAudioCtx) return;
+
+      const now = adminAudioCtx.currentTime;
+      const notes = [523.25, 659.25, 783.99, 1046.50];
+      notes.forEach((freq, idx) => {
+        const osc = adminAudioCtx.createOscillator();
+        const gain = adminAudioCtx.createGain();
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(freq, now + idx * 0.12);
+
+        gain.gain.setValueAtTime(0, now + idx * 0.12);
+        gain.gain.linearRampToValueAtTime(0.4, now + idx * 0.12 + 0.02);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.12 + 0.45);
+
+        osc.connect(gain);
+        gain.connect(adminAudioCtx.destination);
+        osc.start(now + idx * 0.12);
+        osc.stop(now + idx * 0.12 + 0.46);
+      });
+    }
+
+    function toggleOrderSoundAlerts() {
+      soundAlertsEnabled = !soundAlertsEnabled;
+      localStorage.setItem('munir_admin_sound_alerts', soundAlertsEnabled ? 'true' : 'false');
+      const txt = document.getElementById('txt-sound-alerts');
+      if (txt) txt.innerText = soundAlertsEnabled ? 'Alerts: ON' : 'Alerts: OFF';
+      if (soundAlertsEnabled) playOrderAlertChime();
+    }
+
+    function viewNewOrdersTab() {
+      document.getElementById('live-order-alert-banner').style.display = 'none';
+      switchTab('orders');
+    }
+
+    function triggerLiveOrderNotification(order) {
+      if (!order) {
+        const orders = window.Store.getOrders();
+        order = orders && orders.length > 0 ? orders[0] : null;
+      }
+      if (!order) return;
+
+      // Play Sound Chime
+      playOrderAlertChime();
+
+      // Show Banner
+      const banner = document.getElementById('live-order-alert-banner');
+      const text = document.getElementById('live-alert-text');
+      if (banner && text) {
+        text.innerHTML = `Order <strong>${order.orderId}</strong> by <strong>${order.customer.name}</strong> (${order.customer.city}) - Total: <strong>PKR ${(order.total || order.subtotal).toLocaleString()}</strong>`;
+        banner.style.display = 'block';
+      }
+
+      // Refresh KPIs and Orders Table in real-time
+      updateKPIs();
+      renderAdminOrdersTable();
+
+      // Native Desktop Notification if supported & allowed
+      if ('Notification' in window) {
+        if (Notification.permission === 'granted') {
+          new Notification('Munir Ahmed Decorations: New Order!', {
+            body: `Order ${order.orderId} received from ${order.customer.name} (${order.customer.city}) for PKR ${(order.total || order.subtotal).toLocaleString()}`,
+            icon: 'assets/images/birthday_decor.jpg'
+          });
+        } else if (Notification.permission !== 'denied') {
+          Notification.requestPermission();
+        }
+      }
+    }
+
+    // Cross-tab storage listener & Store event listener
+    window.addEventListener('storage', (e) => {
+      if (e.key === 'munir_party_orders_v6') {
+        triggerLiveOrderNotification();
+      }
+    });
+
+    if (window.Store) {
+      window.Store.subscribe((event, data) => {
+        if (event === 'ORDER_PLACED') {
+          triggerLiveOrderNotification(data);
+        }
+      });
     }
 
     // Theme Toggle Handler for Admin

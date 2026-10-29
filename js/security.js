@@ -190,7 +190,7 @@ const CyberDefense = (function() {
       }
 
       // Check price matching
-      const expectedPrice = item.isWholesale ? realProduct.wholesalePrice : realProduct.price;
+      const expectedPrice = realProduct.price;
       const clientPrice = Number(item.price);
 
       // Allow 0.01 margin for float rounding

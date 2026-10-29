@@ -7,18 +7,16 @@ const Store = (function() {
   'use strict';
 
   const STORAGE_KEYS = {
-    PRODUCTS: 'munir_party_products_v4',
-    CART: 'munir_party_cart_v4',
-    ORDERS: 'munir_party_orders_v4',
-    WHOLESALE: 'munir_is_wholesale_v4',
-    ADMIN_SESSION: 'munir_admin_auth_v4'
+    PRODUCTS: 'munir_party_products_v6',
+    CART: 'munir_party_cart_v6',
+    ORDERS: 'munir_party_orders_v6',
+    ADMIN_SESSION: 'munir_admin_auth_v6'
   };
 
   // State objects
   let products = [];
   let cart = [];
   let orders = [];
-  let isWholesaleMode = false;
   let listeners = [];
 
   /**
@@ -54,13 +52,6 @@ const Store = (function() {
       orders = seedOrders();
     }
 
-    // 4. Wholesale Mode
-    try {
-      isWholesaleMode = localStorage.getItem(STORAGE_KEYS.WHOLESALE) === 'true';
-    } catch (e) {
-      isWholesaleMode = false;
-    }
-
     // Verify initial cart against products & security
     validateCartAgainstStock();
   }
@@ -77,12 +68,12 @@ const Store = (function() {
           address: 'Gulberg III, Near MM Alam Road'
         },
         items: [
-          { id: 'WD-201', title: 'Royal Handcrafted Gota Kinari Mehndi Thaal', price: 1850, quantity: 4, isWholesale: true },
-          { id: 'PP-101', title: '60cm Gold Metallic Confetti Cannon', price: 750, quantity: 12, isWholesale: true }
+          { id: 'WD-201', title: 'Royal Handcrafted Gota Kinari Mehndi Thaal', price: 1850, quantity: 4 },
+          { id: 'PP-002', title: '30cm Deluxe Confetti Cannon Party Popper', price: 350, quantity: 6 }
         ],
-        subtotal: 16400,
+        subtotal: 9500,
         shipping: 0,
-        total: 16400,
+        total: 9500,
         paymentMethod: 'jazzcash',
         paymentStatus: 'VERIFIED',
         transactionRef: 'JC-904812491',
@@ -99,8 +90,8 @@ const Store = (function() {
           address: 'Block 4, Clifton'
         },
         items: [
-          { id: 'CT-002', title: '"Dulhan" Royal Urdu Calligraphy Wedding Cake Topper', price: 550, quantity: 1, isWholesale: false },
-          { id: 'BL-301', title: 'Deluxe Emerald & Chrome Gold Balloon Garland Kit', price: 2100, quantity: 1, isWholesale: false }
+          { id: 'CT-002', title: '"Dulhan" Royal Urdu Calligraphy Wedding Cake Topper', price: 550, quantity: 1 },
+          { id: 'BL-301', title: 'Deluxe Emerald & Chrome Gold Balloon Garland Kit', price: 2100, quantity: 1 }
         ],
         subtotal: 2650,
         shipping: 250,
@@ -174,31 +165,6 @@ const Store = (function() {
     return orders;
   }
 
-  function isWholesale() {
-    return isWholesaleMode;
-  }
-
-  function setWholesaleMode(enabled) {
-    isWholesaleMode = Boolean(enabled);
-    localStorage.setItem(STORAGE_KEYS.WHOLESALE, String(isWholesaleMode));
-    
-    // Update existing items in cart with their wholesale prices if qualified
-    cart.forEach(item => {
-      const prod = getProductById(item.id);
-      if (prod) {
-        if (isWholesaleMode || item.quantity >= prod.minWholesaleQty) {
-          item.isWholesale = true;
-          item.price = prod.wholesalePrice;
-        } else {
-          item.isWholesale = false;
-          item.price = prod.price;
-        }
-      }
-    });
-    saveCart();
-    notify('WHOLESALE_TOGGLED', isWholesaleMode);
-    notify('CART_UPDATED', cart);
-  }
 
   /**
    * Add Item to Cart with Stock Check and Tamper-Proof Price
@@ -228,12 +194,10 @@ const Store = (function() {
       };
     }
 
-    const qualifiesWholesale = isWholesaleMode || requestedQty >= product.minWholesaleQty;
-    const effectivePrice = qualifiesWholesale ? product.wholesalePrice : product.price;
+    const effectivePrice = product.price;
 
     if (existingIndex > -1) {
       cart[existingIndex].quantity = requestedQty;
-      cart[existingIndex].isWholesale = qualifiesWholesale;
       cart[existingIndex].price = effectivePrice;
       cart[existingIndex].hash = window.CyberDefense ? window.CyberDefense.computeItemHash(productId, effectivePrice) : '';
     } else {
@@ -244,9 +208,7 @@ const Store = (function() {
         category: product.category,
         image: product.image,
         price: effectivePrice,
-        isWholesale: qualifiesWholesale,
         quantity: requestedQty,
-        minWholesaleQty: product.minWholesaleQty,
         hash: window.CyberDefense ? window.CyberDefense.computeItemHash(productId, effectivePrice) : ''
       });
     }
@@ -269,11 +231,8 @@ const Store = (function() {
         newQty = product.stock;
       }
       cart[itemIndex].quantity = newQty;
-      
       if (product) {
-        const qualifiesWholesale = isWholesaleMode || newQty >= product.minWholesaleQty;
-        cart[itemIndex].isWholesale = qualifiesWholesale;
-        cart[itemIndex].price = qualifiesWholesale ? product.wholesalePrice : product.price;
+        cart[itemIndex].price = product.price;
       }
     }
 
@@ -296,16 +255,10 @@ const Store = (function() {
   function getCartSummary() {
     let count = 0;
     let subtotal = 0;
-    let totalSavings = 0;
 
     cart.forEach(item => {
-      const prod = getProductById(item.id);
       count += item.quantity;
       subtotal += item.price * item.quantity;
-      if (prod && item.isWholesale) {
-        const retailCost = prod.price * item.quantity;
-        totalSavings += (retailCost - (item.price * item.quantity));
-      }
     });
 
     // Free delivery in Pakistan above PKR 3,500
@@ -317,7 +270,7 @@ const Store = (function() {
       subtotal,
       shipping,
       grandTotal,
-      totalSavings
+      totalSavings: 0
     };
   }
 
@@ -416,7 +369,7 @@ const Store = (function() {
       subtotal: summary.subtotal,
       shipping: summary.shipping,
       total: summary.grandTotal,
-      savings: summary.totalSavings,
+      savings: 0,
       paymentMethod: payment.method,
       paymentStatus: payment.method === 'cod' ? 'PENDING_DELIVERY' : 'PENDING_VERIFICATION',
       transactionRef: window.CyberDefense.sanitizeHTML(payment.transactionRef || 'N/A'),
@@ -462,14 +415,13 @@ const Store = (function() {
     return false;
   }
 
-  function updateProductPrices(productId, retailPrice, wholesalePrice) {
+  function updateProductPrices(productId, newPrice) {
     const prod = getProductById(productId);
     if (prod) {
-      prod.price = Math.max(1, parseFloat(retailPrice) || prod.price);
-      prod.wholesalePrice = Math.max(1, parseFloat(wholesalePrice) || prod.wholesalePrice);
+      prod.price = Math.max(1, parseFloat(newPrice) || prod.price);
       saveProducts();
       notify('PRODUCTS_UPDATED', products);
-      window.CyberDefense.logSecurityEvent('ADMIN_INVENTORY', 'PRICE_UPDATED', `Product ${productId} prices updated.`, 'INFO');
+      window.CyberDefense.logSecurityEvent('ADMIN_INVENTORY', 'PRICE_UPDATED', `Product ${productId} price updated to ${prod.price}.`, 'INFO');
       return true;
     }
     return false;
@@ -493,8 +445,6 @@ const Store = (function() {
       urduTitle: window.CyberDefense.sanitizeHTML(productData.urduTitle || ''),
       category: productData.category || 'wedding-decor',
       price: parseFloat(productData.price) || 500,
-      wholesalePrice: parseFloat(productData.wholesalePrice) || 350,
-      minWholesaleQty: parseInt(productData.minWholesaleQty, 10) || 10,
       stock: parseInt(productData.stock, 10) || 20,
       lowStockThreshold: 5,
       badge: productData.badge || 'New Arrival',
@@ -530,8 +480,6 @@ const Store = (function() {
     getCart,
     getOrders,
     getCartSummary,
-    isWholesale,
-    setWholesaleMode,
     addToCart,
     updateCartQuantity,
     removeFromCart,

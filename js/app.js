@@ -121,29 +121,6 @@
       });
     },
 
-    playWholesale() {
-      if (!this.enabled) return;
-      this.ensureContext();
-      if (!this.audioCtx) return;
-
-      const now = this.audioCtx.currentTime;
-      const notes = [440, 554.37, 659.25, 880];
-      notes.forEach((freq, idx) => {
-        const osc = this.audioCtx.createOscillator();
-        const gain = this.audioCtx.createGain();
-        osc.type = 'triangle';
-        osc.frequency.setValueAtTime(freq, now + idx * 0.06);
-
-        gain.gain.setValueAtTime(0, now + idx * 0.06);
-        gain.gain.linearRampToValueAtTime(0.25, now + idx * 0.06 + 0.02);
-        gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.06 + 0.3);
-
-        osc.connect(gain);
-        gain.connect(this.audioCtx.destination);
-        osc.start(now + idx * 0.06);
-        osc.stop(now + idx * 0.06 + 0.32);
-      });
-    },
 
     playFanfare() {
       if (!this.enabled) return;
@@ -405,7 +382,6 @@
     populateCities();
     setupEventListeners();
     setupConfettiEngine();
-    setupBulkCalculator();
     startDispatchCountdown();
 
     // Subscribe to Store updates
@@ -417,26 +393,11 @@
           renderProducts();
           renderPopularItems();
           if (isAdminLoggedIn) renderAdminInventory();
-        } else if (event === 'WHOLESALE_TOGGLED') {
-          renderProducts();
-          renderPopularItems();
-          updateCartUI();
-          syncWholesaleSwitch(data);
         } else if (event === 'ORDER_PLACED') {
           openOrderSuccess(data);
         }
       });
     }
-
-    // Check wholesale initial state
-    if (window.Store) {
-      syncWholesaleSwitch(window.Store.isWholesale());
-    }
-  }
-
-  function syncWholesaleSwitch(isWholesale) {
-    const sw = document.getElementById('wholesale-toggle');
-    if (sw) sw.checked = isWholesale;
   }
 
   /**
@@ -486,7 +447,6 @@
     if (!popularGrid || !window.Store) return;
 
     const allProducts = window.Store.getProducts();
-    const isWholesale = window.Store.isWholesale();
 
     // Priority viral and bestseller product IDs
     const priorityIds = ['FB-002', 'CD-001', 'PS-001', 'BG-002', 'GP-001', 'GB-001', 'CT-002', 'PP-001'];
@@ -499,9 +459,6 @@
     }
 
     popularGrid.innerHTML = popularItems.map(p => {
-      const displayPrice = isWholesale ? p.wholesalePrice : p.price;
-      const otherPrice = isWholesale ? p.price : p.wholesalePrice;
-      
       // Stock Status logic
       let stockBadgeHtml = '';
       if (p.stock <= 0) {
@@ -557,11 +514,7 @@
 
             <div class="product-pricing-box">
               <div>
-                <span class="price-main">PKR ${displayPrice.toLocaleString()}</span>
-                ${isWholesale ? '<span style="font-size:0.75rem; color:#2ed573; font-weight:700; margin-left:4px;">(Wholesale Rate)</span>' : ''}
-              </div>
-              <div class="price-wholesale-sub">
-                ${isWholesale ? `Retail: PKR ${otherPrice.toLocaleString()}` : `Wholesale: PKR ${otherPrice.toLocaleString()} (${p.minWholesaleQty || 10}+ pcs)`}
+                <span class="price-main">PKR ${p.price.toLocaleString()}</span>
               </div>
             </div>
 
@@ -637,7 +590,6 @@
     if (!productsGrid || !window.Store) return;
 
     let items = window.Store.getProducts();
-    const isWholesale = window.Store.isWholesale();
 
     // 1. Filter by category
     if (currentFilter !== 'all') {
@@ -656,9 +608,9 @@
 
     // 3. Sort items
     if (currentSort === 'price-low') {
-      items.sort((a, b) => (isWholesale ? a.wholesalePrice : a.price) - (isWholesale ? b.wholesalePrice : b.price));
+      items.sort((a, b) => a.price - b.price);
     } else if (currentSort === 'price-high') {
-      items.sort((a, b) => (isWholesale ? b.wholesalePrice : b.price) - (isWholesale ? a.wholesalePrice : a.price));
+      items.sort((a, b) => b.price - a.price);
     } else if (currentSort === 'stock') {
       items.sort((a, b) => b.stock - a.stock);
     } else if (currentSort === 'rating') {
@@ -682,9 +634,6 @@
 
     // Render Cards
     productsGrid.innerHTML = items.map(p => {
-      const displayPrice = isWholesale ? p.wholesalePrice : p.price;
-      const otherPrice = isWholesale ? p.price : p.wholesalePrice;
-      
       // Stock Status logic
       let stockBadgeHtml = '';
       if (p.stock <= 0) {
@@ -743,11 +692,7 @@
             <!-- Price Box -->
             <div class="product-pricing-box">
               <div>
-                <span class="price-main">PKR ${displayPrice.toLocaleString()}</span>
-                ${isWholesale ? '<span style="font-size:0.75rem; color:#2ed573; font-weight:700; margin-left:4px;">(Wholesale Rate)</span>' : ''}
-              </div>
-              <div class="price-wholesale-sub">
-                ${isWholesale ? `Retail: PKR ${otherPrice.toLocaleString()}` : `Wholesale: PKR ${otherPrice.toLocaleString()} (${p.minWholesaleQty || 10}+ pcs)`}
+                <span class="price-main">PKR ${p.price.toLocaleString()}</span>
               </div>
             </div>
 
@@ -922,14 +867,8 @@
     }
     if (cartTotalEl) cartTotalEl.innerText = `PKR ${summary.grandTotal.toLocaleString()}`;
 
-    // Wholesale Savings Row
-    if (cartSavingsRow && cartSavingsEl) {
-      if (summary.totalSavings > 0) {
-        cartSavingsRow.style.display = 'flex';
-        cartSavingsEl.innerText = `-PKR ${summary.totalSavings.toLocaleString()}`;
-      } else {
-        cartSavingsRow.style.display = 'none';
-      }
+    if (cartSavingsRow) {
+      cartSavingsRow.style.display = 'none';
     }
 
     // Free Delivery Meter (Target PKR 3,500)
@@ -970,7 +909,6 @@
               <div class="cart-item-title">${item.title}</div>
               <div class="cart-item-price">
                 PKR ${item.price.toLocaleString()}
-                ${item.isWholesale ? '<span style="font-size:0.7rem; color:#2ed573; font-weight:700;">(Wholesale)</span>' : ''}
               </div>
 
               <div class="cart-item-bottom-row">
@@ -1037,9 +975,6 @@
     const prod = window.Store.getProductById(productId);
     if (!prod || !quickViewModal) return;
 
-    const isWholesale = window.Store.isWholesale();
-    const displayPrice = isWholesale ? prod.wholesalePrice : prod.price;
-
     const qvTitle = document.getElementById('qv-title');
     const qvBody = document.getElementById('qv-body');
 
@@ -1066,10 +1001,7 @@
 
             <div style="margin-bottom:16px;">
               <div style="font-family:var(--font-heading); font-size:1.6rem; font-weight:800; color:#fff;">
-                PKR ${displayPrice.toLocaleString()}
-              </div>
-              <div style="font-size:0.82rem; color:#ffc048;">
-                Wholesale Price: PKR ${prod.wholesalePrice.toLocaleString()} (Min ${prod.minWholesaleQty} pcs)
+                PKR ${prod.price.toLocaleString()}
               </div>
             </div>
 
@@ -1275,10 +1207,17 @@
       successPayment.innerText = methodNames[order.paymentMethod] || order.paymentMethod;
     }
 
-    // Generate WhatsApp Slip
+    // Generate WhatsApp Slip & automatically dispatch notification to shop owner
     if (btnWhatsApp) {
       const slipUrl = generateWhatsAppOrderUrl(order);
       btnWhatsApp.href = slipUrl;
+
+      // Automatically trigger WhatsApp notification to shop helpline
+      try {
+        window.open(slipUrl, '_blank');
+      } catch (err) {
+        console.warn('Popup blocked; customer can click the notification button directly');
+      }
     }
 
     if (orderSuccessModal) {
@@ -1415,38 +1354,6 @@ Please confirm stock availability and payment details for delivery!`;
     setInterval(updateTimer, 1000);
   }
 
-  /**
-   * Bulk Calculator
-   */
-  function setupBulkCalculator() {
-    const slider = document.getElementById('calc-qty-slider');
-    const display = document.getElementById('calc-qty-display');
-    const savings = document.getElementById('calc-savings-display');
-    const badge = document.getElementById('calc-tier-badge');
-
-    if (!slider) return;
-
-    slider.addEventListener('input', (e) => {
-      const val = parseInt(e.target.value, 10);
-      if (display) display.innerText = `${val} Units`;
-
-      let discount = 25;
-      let tierName = 'Tier 1 Starter';
-      if (val >= 100) {
-        discount = 45;
-        tierName = 'Tier 3 Master Distributor';
-      } else if (val >= 40) {
-        discount = 38;
-        tierName = 'Tier 2 Trade Bulk';
-      } else if (val >= 20) {
-        discount = 32;
-        tierName = 'Tier 1 Event Planner';
-      }
-
-      if (savings) savings.innerText = `${discount}% Wholesale Margin`;
-      if (badge) badge.innerText = tierName;
-    });
-  }
 
   /**
    * Admin Portal Logic
@@ -1500,10 +1407,7 @@ Please confirm stock availability and payment details for delivery!`;
         </td>
         <td>${p.category}</td>
         <td>
-          <input type="number" id="adm-ret-${p.id}" value="${p.price}" style="width:75px; background:#090c15; color:#fff; border:1px solid #333; padding:4px; border-radius:6px;">
-        </td>
-        <td>
-          <input type="number" id="adm-who-${p.id}" value="${p.wholesalePrice}" style="width:75px; background:#090c15; color:#ffc048; border:1px solid #333; padding:4px; border-radius:6px;">
+          <input type="number" id="adm-pri-${p.id}" value="${p.price}" style="width:75px; background:#090c15; color:#fff; border:1px solid #333; padding:4px; border-radius:6px;">
         </td>
         <td>
           <input type="number" id="adm-stk-${p.id}" value="${p.stock}" style="width:65px; background:#090c15; color:#2ed573; border:1px solid #333; padding:4px; border-radius:6px;">
@@ -1518,11 +1422,10 @@ Please confirm stock availability and payment details for delivery!`;
   }
 
   window.saveAdminProductRow = function(productId) {
-    const ret = document.getElementById(`adm-ret-${productId}`).value;
-    const who = document.getElementById(`adm-who-${productId}`).value;
+    const pri = document.getElementById(`adm-pri-${productId}`).value;
     const stk = document.getElementById(`adm-stk-${productId}`).value;
 
-    window.Store.updateProductPrices(productId, ret, who);
+    window.Store.updateProductPrices(productId, pri);
     window.Store.updateProductStock(productId, stk);
     showToast(`Updated ${productId} successfully!`, 'success');
   };
@@ -1629,33 +1532,6 @@ Please confirm stock availability and payment details for delivery!`;
       floatingPartyBtn.addEventListener('click', (e) => {
         SoundFX.playPop();
         triggerConfetti(e.clientX || window.innerWidth * 0.85, e.clientY || window.innerHeight * 0.85, 140);
-      });
-    }
-
-    // Wholesale Toggle Switch
-    const wholesaleSwitch = document.getElementById('wholesale-toggle');
-    if (wholesaleSwitch) {
-      wholesaleSwitch.addEventListener('change', (e) => {
-        window.Store.setWholesaleMode(e.target.checked);
-        if (e.target.checked) {
-          SoundFX.playWholesale();
-          triggerConfetti(window.innerWidth / 2, 80, 50);
-        }
-        showToast(e.target.checked ? '⚡ Wholesale Bulk Pricing Active! (30-40% OFF)' : 'Retail Mode Active', 'info');
-      });
-    }
-
-    // Quick Wholesale Toggle Button in Banner
-    const btnQuickWholesale = document.getElementById('btn-quick-toggle-wholesale');
-    if (btnQuickWholesale) {
-      btnQuickWholesale.addEventListener('click', () => {
-        const current = window.Store.isWholesale();
-        window.Store.setWholesaleMode(!current);
-        if (!current) {
-          SoundFX.playWholesale();
-          triggerConfetti(window.innerWidth / 2, 200, 50);
-        }
-        showToast(!current ? '⚡ Wholesale Bulk Pricing Active!' : 'Retail Mode Active', 'info');
       });
     }
 
