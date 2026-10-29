@@ -11,7 +11,7 @@
   let currentFilter = 'all';
   let searchQuery = '';
   let currentSort = 'featured';
-  let activePaymentMethod = 'cod';
+  let activePaymentMethod = 'jazzcash';
   let isAdminLoggedIn = false;
 
   // DOM Elements
@@ -1113,28 +1113,24 @@
     const refContainer = document.getElementById('payment-ref-container');
     const instructionsText = document.getElementById('payment-instructions-text');
 
-    if (method === 'cod') {
-      if (refContainer) refContainer.style.display = 'none';
-    } else {
-      if (refContainer) refContainer.style.display = 'block';
-      if (instructionsText) {
-        if (method === 'jazzcash') {
-          instructionsText.innerHTML = `
-            <strong>JazzCash Payment Details:</strong><br>
-            Please send payable amount to JazzCash Mobile Account: <strong>0300-8451998</strong> (Title: <strong>Munir Ahmed Decorations</strong>). Enter the transaction TID below for immediate dispatch verification.
-          `;
-        } else if (method === 'easypaisa') {
-          instructionsText.innerHTML = `
-            <strong>EasyPaisa Payment Details:</strong><br>
-            Please send payable amount to EasyPaisa Account: <strong>0300-8451998</strong> (Title: <strong>Munir Ahmed Decorations</strong>). Enter the transaction TID below.
-          `;
-        } else if (method === 'meezan') {
-          instructionsText.innerHTML = `
-            <strong>Meezan Bank & Raast Transfer:</strong><br>
-            Raast ID: <strong>03008451998</strong> | IBAN: <strong>PK42MEZN0001234567890101</strong><br>
-            Account Title: <strong>Munir Ahmed Decorations Co.</strong>. Enter Bank Reference ID below.
-          `;
-        }
+    if (refContainer) refContainer.style.display = 'block';
+    if (instructionsText) {
+      if (method === 'jazzcash') {
+        instructionsText.innerHTML = `
+          <strong>JazzCash Payment Details:</strong><br>
+          Please send payable amount to JazzCash Mobile Account: <strong>0300-8451998</strong> (Title: <strong>Munir Ahmed Decorations</strong>). Enter the transaction TID below for immediate dispatch verification.
+        `;
+      } else if (method === 'easypaisa') {
+        instructionsText.innerHTML = `
+          <strong>EasyPaisa Payment Details:</strong><br>
+          Please send payable amount to EasyPaisa Account: <strong>0300-8451998</strong> (Title: <strong>Munir Ahmed Decorations</strong>). Enter the transaction TID below.
+        `;
+      } else if (method === 'meezan') {
+        instructionsText.innerHTML = `
+          <strong>Meezan Bank & Raast Transfer:</strong><br>
+          Raast ID: <strong>03008451998</strong> | IBAN: <strong>PK42MEZN0001234567890101</strong><br>
+          Account Title: <strong>Munir Ahmed Decorations Co.</strong>. Enter Bank Reference ID below.
+        `;
       }
     }
   };
@@ -1199,7 +1195,6 @@
     if (successTotal) successTotal.innerText = `PKR ${order.total.toLocaleString()}`;
     if (successPayment) {
       const methodNames = {
-        cod: 'Cash on Delivery (COD)',
         jazzcash: 'JazzCash Direct',
         easypaisa: 'EasyPaisa Direct',
         meezan: 'Meezan Bank / Raast'
@@ -1241,24 +1236,32 @@
       `${idx + 1}. *${i.title}* x ${i.quantity} = PKR ${(i.price * i.quantity).toLocaleString()}`
     ).join('\n');
 
+    const methodNames = {
+      jazzcash: 'JazzCash Direct (0300-8451998)',
+      easypaisa: 'EasyPaisa Direct (0300-8451998)',
+      meezan: 'Meezan Bank & Raast (03008451998)'
+    };
+    const paymentLabel = methodNames[order.paymentMethod] || order.paymentMethod.toUpperCase();
+
     const msg = 
-`🎉 *NEW ORDER - MUNIR AHMED DECORATIONS*
+`🎉 *NEW ORDER NOTIFICATION - MUNIR AHMED DECORATIONS*
 ━━━━━━━━━━━━━━━━━━━━
 *Order ID:* ${order.orderId}
-*Customer:* ${order.customer.name}
-*Phone:* ${order.customer.phone}
+*Customer Name:* ${order.customer.name}
+*Contact Phone:* ${order.customer.phone}
 *City:* ${order.customer.city}
 *Delivery Address:* ${order.customer.address}
-${order.customer.notes ? `*Notes:* ${order.customer.notes}\n` : ''}━━━━━━━━━━━━━━━━━━━━
-*ITEMS ORDERED:*
+${order.customer.notes ? `*Special Notes:* ${order.customer.notes}\n` : ''}━━━━━━━━━━━━━━━━━━━━
+*ORDERED ITEMS:*
 ${itemsList}
 
 *Items Subtotal:* PKR ${order.subtotal.toLocaleString()}
-*Courier Delivery:* PKR ${order.shipping.toLocaleString()}
-*TOTAL PAYABLE:* PKR ${order.total.toLocaleString()}
-*Payment Method:* ${order.paymentMethod.toUpperCase()}
-${order.transactionRef !== 'N/A' ? `*Payment TID:* ${order.transactionRef}\n` : ''}━━━━━━━━━━━━━━━━━━━━
-_Please confirm dispatch from Munir Ahmed Decorations Lahore Warehouse._`;
+*Courier Delivery Fee:* PKR ${order.shipping.toLocaleString()}
+*GRAND TOTAL PAYABLE:* PKR ${order.total.toLocaleString()}
+
+*Payment Method:* ${paymentLabel}
+${order.transactionRef && order.transactionRef !== 'N/A' ? `*Payment TID / Ref:* ${order.transactionRef}\n` : ''}━━━━━━━━━━━━━━━━━━━━
+_Order submitted via website. Please verify payment TID and dispatch order via TCS/Leopards!_`;
 
     return `https://wa.me/923008451998?text=${encodeURIComponent(msg)}`;
   }

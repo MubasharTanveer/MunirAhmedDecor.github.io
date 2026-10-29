@@ -7,10 +7,10 @@ const Store = (function() {
   'use strict';
 
   const STORAGE_KEYS = {
-    PRODUCTS: 'munir_party_products_v6',
-    CART: 'munir_party_cart_v6',
-    ORDERS: 'munir_party_orders_v6',
-    ADMIN_SESSION: 'munir_admin_auth_v6'
+    PRODUCTS: 'munir_party_products_v7',
+    CART: 'munir_party_cart_v7',
+    ORDERS: 'munir_party_orders_v7',
+    ADMIN_SESSION: 'munir_admin_auth_v7'
   };
 
   // State objects
@@ -96,9 +96,9 @@ const Store = (function() {
         subtotal: 2650,
         shipping: 250,
         total: 2900,
-        paymentMethod: 'cod',
-        paymentStatus: 'PENDING_DELIVERY',
-        transactionRef: 'COD-RIDER',
+        paymentMethod: 'easypaisa',
+        paymentStatus: 'VERIFIED',
+        transactionRef: 'EP-9023418',
         orderStatus: 'Dispatched (TCS/Leopard)',
         securityHash: 'verified-authentic-02'
       }
@@ -371,7 +371,7 @@ const Store = (function() {
       total: summary.grandTotal,
       savings: 0,
       paymentMethod: payment.method,
-      paymentStatus: payment.method === 'cod' ? 'PENDING_DELIVERY' : 'PENDING_VERIFICATION',
+      paymentStatus: 'PENDING_VERIFICATION',
       transactionRef: window.CyberDefense.sanitizeHTML(payment.transactionRef || 'N/A'),
       orderStatus: 'Confirmed & Packing',
       securityToken: window.CyberDefense.getCsrfToken()

@@ -249,8 +249,8 @@
 
         <div>
           <h4 style="font-size:0.92rem; color:#ffc048; margin-bottom:8px;">Payment Details</h4>
-          <div>Method: <strong id="res-payment-method" style="color:#fff;">Cash on Delivery</strong></div>
-          <div>Status: <span id="res-payment-status" style="color:#2ed573; font-weight:700;">Pending Rider Collection</span></div>
+          <div>Method: <strong id="res-payment-method" style="color:#fff;">JazzCash Direct</strong></div>
+          <div>Status: <span id="res-payment-status" style="color:#2ed573; font-weight:700;">Payment Verified</span></div>
           <div style="margin-top:6px; font-size:1.15rem; font-weight:800; color:#fff;">
             Total: <span class="gold-text" id="res-order-total">PKR 0</span>
           </div>
@@ -316,7 +316,7 @@
       document.getElementById('res-cust-name').innerText = found.customer.name;
       document.getElementById('res-cust-phone').innerText = found.customer.phone;
       document.getElementById('res-cust-address').innerText = found.customer.address;
-      document.getElementById('res-payment-method').innerText = (found.paymentMethod || 'COD').toUpperCase();
+      document.getElementById('res-payment-method').innerText = (found.paymentMethod || 'JAZZCASH').toUpperCase();
       document.getElementById('res-payment-status').innerText = found.paymentStatus || 'Verified';
       document.getElementById('res-order-total').innerText = 'PKR ' + (found.total || found.subtotal).toLocaleString();
 

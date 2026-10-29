@@ -862,15 +862,6 @@ const PAKISTAN_CITIES = [
 // Pakistani Payment Gateways & Offline Channels
 const PAYMENT_METHODS = [
   {
-    id: 'cod',
-    name: 'Cash on Delivery (COD)',
-    urduName: 'کیش آن ڈیلیوری',
-    icon: '💵',
-    description: 'Pay cash to TCS / Leopards courier rider when parcel arrives at your doorstep.',
-    isAvailable: true,
-    requiresVerification: false
-  },
-  {
     id: 'jazzcash',
     name: 'JazzCash Direct (Account / QR)',
     urduName: 'جاز کیش',
