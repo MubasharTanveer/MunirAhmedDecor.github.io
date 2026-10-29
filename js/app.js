@@ -1118,17 +1118,17 @@
       if (method === 'jazzcash') {
         instructionsText.innerHTML = `
           <strong>JazzCash Payment Details:</strong><br>
-          Please send payable amount to JazzCash Mobile Account: <strong>0300-8451998</strong> (Title: <strong>Munir Ahmed Decorations</strong>). Enter the transaction TID below for immediate dispatch verification.
+          Please send payable amount to JazzCash Mobile Account: <strong>0316-4898176</strong> (Title: <strong>Munir Ahmed Decorations</strong>). Enter the transaction TID below for immediate dispatch verification.
         `;
       } else if (method === 'easypaisa') {
         instructionsText.innerHTML = `
           <strong>EasyPaisa Payment Details:</strong><br>
-          Please send payable amount to EasyPaisa Account: <strong>0300-8451998</strong> (Title: <strong>Munir Ahmed Decorations</strong>). Enter the transaction TID below.
+          Please send payable amount to EasyPaisa Account: <strong>0316-4898176</strong> (Title: <strong>Munir Ahmed Decorations</strong>). Enter the transaction TID below.
         `;
       } else if (method === 'meezan') {
         instructionsText.innerHTML = `
           <strong>Meezan Bank & Raast Transfer:</strong><br>
-          Raast ID: <strong>03008451998</strong> | IBAN: <strong>PK42MEZN0001234567890101</strong><br>
+          Raast ID: <strong>03164898176</strong> | IBAN: <strong>PK42MEZN0001234567890101</strong><br>
           Account Title: <strong>Munir Ahmed Decorations Co.</strong>. Enter Bank Reference ID below.
         `;
       }
@@ -1237,9 +1237,9 @@
     ).join('\n');
 
     const methodNames = {
-      jazzcash: 'JazzCash Direct (0300-8451998)',
-      easypaisa: 'EasyPaisa Direct (0300-8451998)',
-      meezan: 'Meezan Bank & Raast (03008451998)'
+      jazzcash: 'JazzCash Direct (0316-4898176)',
+      easypaisa: 'EasyPaisa Direct (0316-4898176)',
+      meezan: 'Meezan Bank & Raast (03164898176)'
     };
     const paymentLabel = methodNames[order.paymentMethod] || order.paymentMethod.toUpperCase();
 
@@ -1263,7 +1263,7 @@ ${itemsList}
 ${order.transactionRef && order.transactionRef !== 'N/A' ? `*Payment TID / Ref:* ${order.transactionRef}\n` : ''}━━━━━━━━━━━━━━━━━━━━
 _Order submitted via website. Please verify payment TID and dispatch order via TCS/Leopards!_`;
 
-    return `https://wa.me/923008451998?text=${encodeURIComponent(msg)}`;
+    return `https://wa.me/923164898176?text=${encodeURIComponent(msg)}`;
   }
 
   /**
@@ -1295,7 +1295,7 @@ ${itemsList}
 
 Please confirm stock availability and payment details for delivery!`;
 
-      window.open(`https://wa.me/923008451998?text=${encodeURIComponent(msg)}`, '_blank');
+      window.open(`https://wa.me/923164898176?text=${encodeURIComponent(msg)}`, '_blank');
     });
   }
 

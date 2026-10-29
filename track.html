@@ -158,7 +158,7 @@
           <span>☀️</span>
           <span>Party Light</span>
         </button>
-        <a href="https://wa.me/923008451998" target="_blank" class="btn-whatsapp-nav">
+        <a href="https://wa.me/923164898176" target="_blank" class="btn-whatsapp-nav">
           <span>💬</span>
           <span>Helpline WhatsApp</span>
         </a>
@@ -302,7 +302,7 @@
       const resultCard = document.getElementById('track-result-card');
 
       if (!found) {
-        alert('Order ID not found in database. Please check your order ID or contact shop WhatsApp at 0300-8451998.');
+        alert('Order ID not found in database. Please check your order ID or contact shop WhatsApp at 0316-4898176.');
         resultCard.style.display = 'none';
         return;
       }
@@ -356,7 +356,7 @@
 
       // WhatsApp Link
       const waMsg = `Assalam o Alaikum! I am checking status of my order ${found.orderId} (Customer: ${found.customer.name}, City: ${found.customer.city}). Please provide courier tracking update!`;
-      document.getElementById('res-whatsapp-link').href = `https://wa.me/923008451998?text=${encodeURIComponent(waMsg)}`;
+      document.getElementById('res-whatsapp-link').href = `https://wa.me/923164898176?text=${encodeURIComponent(waMsg)}`;
 
       resultCard.style.display = 'block';
       resultCard.scrollIntoView({ behavior: 'smooth' });
