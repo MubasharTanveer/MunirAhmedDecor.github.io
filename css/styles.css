@@ -1,4 +1,4 @@
-﻿/* ===================================================================
+/* ===================================================================
    MUNIR AHMED DECORATIONS (منیر احمد ڈیکوریشنز)
    Premier Party Supplies & Balloon House Pakistan
    Modern Vibrant Party E-Commerce Design System
@@ -338,23 +338,6 @@ body::before {
   gap: 20px;
 }
 
-/* Switch */
-.wholesale-switch-container {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  background: rgba(255, 255, 255, 0.05);
-  padding: 3px 10px;
-  border-radius: 20px;
-  border: 1px solid var(--border-subtle);
-}
-
-.wholesale-label {
-  font-weight: 600;
-  font-size: 0.78rem;
-  color: #ffc048;
-  cursor: pointer;
-}
 
 .switch-toggle {
   position: relative;
@@ -1453,33 +1436,6 @@ input:checked + .slider-round:before {
   box-shadow: 0 4px 15px rgba(255, 46, 99, 0.35);
 }
 
-/* Catalog Banner */
-.wholesale-alert-strip {
-  background: linear-gradient(90deg, rgba(255, 165, 2, 0.15) 0%, rgba(108, 92, 231, 0.15) 100%);
-  border: 1px dashed rgba(255, 165, 2, 0.4);
-  border-radius: 14px;
-  padding: 14px 20px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 14px;
-  margin-bottom: 30px;
-}
-
-.wholesale-alert-left {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.wholesale-alert-icon {
-  font-size: 1.5rem;
-}
-
-.wholesale-alert-text strong {
-  color: #ffc048;
-}
 
 /* Products Grid */
 .products-grid {
@@ -1715,11 +1671,6 @@ input:checked + .slider-round:before {
   color: var(--brand-heading-color);
 }
 
-.price-wholesale-sub {
-  font-size: 0.78rem;
-  color: var(--party-gold);
-  font-weight: 600;
-}
 
 /* Card Action Area */
 .product-action-row {
@@ -1824,109 +1775,6 @@ input:checked + .slider-round:before {
   box-shadow: none;
 }
 
-/* ===================================================================
-   SPECIAL INQUIRY BANNER
-   =================================================================== */
-.section-wholesale-desk {
-  padding: 50px 0;
-  background: transparent;
-}
-
-.wholesale-box {
-  background: var(--hero-card-bg);
-  border: 2px solid var(--border-gold-glow);
-  border-radius: 24px;
-  padding: 40px;
-  box-shadow: var(--shadow-lg), 0 0 40px rgba(255, 165, 2, 0.15);
-  display: grid;
-  grid-template-columns: 1.2fr 0.8fr;
-  gap: 36px;
-  align-items: center;
-}
-
-.wholesale-text-col h3 {
-  font-family: var(--font-heading);
-  font-size: 2rem;
-  font-weight: 800;
-  margin-bottom: 10px;
-  color: var(--brand-heading-color);
-}
-
-.wholesale-text-col p {
-  color: var(--text-secondary);
-  font-size: 0.98rem;
-  margin-bottom: 20px;
-}
-
-.wholesale-perks-list {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-  margin-bottom: 24px;
-  list-style: none;
-}
-
-.wholesale-perk-item {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 0.88rem;
-  font-weight: 600;
-  color: var(--text-main);
-}
-
-.wholesale-quick-calc {
-  background: var(--bg-card);
-  border: 1px solid var(--border-subtle);
-  border-radius: 18px;
-  padding: 24px;
-  box-shadow: var(--shadow-sm);
-}
-
-.calc-title {
-  font-family: var(--font-heading);
-  font-size: 1.15rem;
-  font-weight: 700;
-  margin-bottom: 16px;
-  color: var(--party-gold);
-}
-
-.calc-slider-group {
-  margin-bottom: 16px;
-}
-
-.calc-slider-group label {
-  display: flex;
-  justify-content: space-between;
-  font-size: 0.85rem;
-  color: var(--text-secondary);
-  margin-bottom: 8px;
-}
-
-.calc-slider {
-  width: 100%;
-  accent-color: var(--party-gold);
-}
-
-.calc-result-box {
-  background: var(--bg-input);
-  border: 1px solid var(--border-subtle);
-  border-radius: 12px;
-  padding: 14px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-top: 14px;
-}
-
-.calc-discount-badge {
-  background: var(--gradient-festive);
-  color: #fff;
-  font-weight: 800;
-  padding: 4px 10px;
-  border-radius: 8px;
-  font-size: 0.85rem;
-}
 
 /* ===================================================================
    PAKISTANI PAYMENT METHODS & EXPRESS COURIER
@@ -2697,10 +2545,6 @@ body.theme-light .shopify-section:nth-of-type(even) {
   .hero-title {
     font-size: 2.5rem;
   }
-  .wholesale-box {
-    grid-template-columns: 1fr;
-    padding: 28px;
-  }
   .footer-grid {
     grid-template-columns: 1fr 1fr;
   }
@@ -2725,12 +2569,6 @@ body.theme-light .shopify-section:nth-of-type(even) {
   .announcement-right .top-link,
   .announcement-right .top-admin-link {
     font-size: 0.75rem;
-  }
-  .wholesale-switch-container {
-    padding: 2px 8px;
-  }
-  .wholesale-label {
-    font-size: 0.72rem;
   }
   .nav-container {
     padding: 10px 14px;
@@ -2847,16 +2685,6 @@ body.theme-light .shopify-section:nth-of-type(even) {
   .welcome-card {
     padding: 20px 14px;
     border-radius: 18px;
-  }
-  .wholesale-box {
-    grid-template-columns: 1fr;
-    padding: 22px 14px;
-    border-radius: 18px;
-    gap: 20px;
-  }
-  .wholesale-perks-list {
-    grid-template-columns: 1fr;
-    gap: 8px;
   }
   .celebration-cards-grid {
     grid-template-columns: repeat(2, 1fr);
@@ -3497,7 +3325,6 @@ body.theme-light .shopify-section:nth-of-type(even) {
    =================================================================== */
 .section-celebrations,
 .section-catalog,
-.section-wholesale-desk,
 .section-payments,
 .main-footer {
   content-visibility: auto;
