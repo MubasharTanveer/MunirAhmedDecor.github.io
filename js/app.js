@@ -167,7 +167,7 @@
         confettiCanvas.height = window.innerHeight;
       }
     }
-    window.addEventListener('resize', resize);
+    window.addEventListener('resize', resize, { passive: true });
     resize();
   }
 
